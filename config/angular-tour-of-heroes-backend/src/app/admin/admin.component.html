@@ -1,0 +1,62 @@
+<!-- Editable table -->
+<div class="card">
+    <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Editable table</h3>
+    <div class="card-body">
+      <div id="table" class="table-editable">
+        <span class="table-add float-right mb-3 mr-2">
+          <a class="text-success" (click)="add()">
+            <mdb-icon fas icon="plus" size="2x"></mdb-icon>
+          </a>
+        </span>
+        <table class="table table-bordered table-responsive-md table-striped text-center">
+          <tr>
+            <th class="text-center">Person Name</th>
+            <th class="text-center">Email</th>
+            <th class="text-center">Password</th>
+            <th class="text-center">Role</th>
+            <th class="text-center">Sort</th>
+            <th class="text-center">Remove</th>
+            <th class="text-center">Update</th>
+          </tr>
+          <tr *ngFor="let user of users; let id = index">
+            <td>
+              <span (keyup)="save(user, 'fullName', $event)" (blur)="save(user, 'fullName', $event)" contenteditable="true">{{user.fullName}}</span>
+            </td>
+            <td>
+              <span contenteditable="true" (keyup)="save(user, 'fullName', $event)" (blur)="save(user, 'fullName', $event)">{{user.email}}</span>
+            </td>
+            <td>
+              <span contenteditable="true" (keyup)="save(user, 'fullName', $event)" (blur)="save(user, 'fullName', $event)">{{user.password}}</span>
+            </td>
+            <td>
+              <span contenteditable="true" (keyup)="save(user, 'fullName', $event)" (blur)="save(user, 'fullName', $event)">{{user.role}}</span>
+            </td>
+            <td>
+              <span class="table-up">
+                <a class="indigo-text">
+                  <mdb-icon fas icon="long-arrow-alt-up"></mdb-icon>
+                </a>
+              </span>
+              <span class="table-down">
+                <a class="indigo-text">
+                  <mdb-icon fas icon="long-arrow-alt-down"></mdb-icon>
+                </a>
+              </span>
+            </td>
+            <td>
+              <span class="table-remove">
+                <button type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0" (click)="remove(id)">Remove</button>
+              </span>
+            </td>
+            <td>
+              <span class="table-update">
+                <button type="button" mdbBtn color="primary" rounded="true" size="sm" class="my-0" (click)="remove(id)">Update</button>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- Editable table -->
+  

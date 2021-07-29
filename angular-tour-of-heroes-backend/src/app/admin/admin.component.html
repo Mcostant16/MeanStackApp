@@ -1,0 +1,77 @@
+<!-- Editable table -->
+<div class="card">
+    <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Editable table</h3>
+    <div class="card-body">
+      <div id="table" class="table-editable">
+        <span class="table-add float-right mb-3 mr-2">
+          <a class="text-success" (click)="add()">
+            <mdb-icon fas icon="plus" size="2x"></mdb-icon>
+          </a>
+        </span>
+        <table class="table table-bordered table-responsive-md table-striped text-center">
+          <tr>
+            <th class="text-center">Person Name</th>
+            <th class="text-center">Email</th>
+            <th class="text-center">Mobile</th>
+            <th class="text-center">Role</th>
+            <th class="text-center">City</th>
+            <th class="text-center">State</th>
+            <th class="text-center">Gender</th>
+            <th class="text-center">Department</th>
+            <th class="text-center">isActive</th>
+            <th class="text-center">DOB</th>
+            <th class="text-center">Sort</th>
+            <th class="text-center">Edit/Delete</th>
+          </tr>
+          <tr *ngFor="let user of users; let id = index; let row">
+            <td>
+              <span (keyup)="save(user, 'fullName', $event)" (blur)="save(user, 'fullName', $event)" contenteditable="true">{{user.fullName}}</span>
+            </td>
+            <td>
+              <span contenteditable="true" (keyup)="save(user, 'email', $event)" (blur)="save(user, 'email', $event)">{{user.email}}</span>
+            </td>
+            <td>
+              <span contenteditable="true" (keyup)="save2(user, 'mobile', $event)" (blur)="save2(user, 'mobile', $event)">{{user.mobile}}</span>
+            </td>
+            <td>
+              <span contenteditable="true" (keyup)="save(user, 'role', $event)" (blur)="save(user, 'role', $event)">{{user.role}}</span>
+            </td>
+            <td>
+              <span contenteditable="true" (keyup)="save(user, 'city', $event)" (blur)="save(user, 'city', $event)">{{user.city}}</span>
+            </td>
+            <td>
+              <span contenteditable="true" (keyup)="save(user, 'state', $event)" (blur)="save(user, 'state', $event)">{{user.state}}</span>
+            </td>
+            <td>
+              <span contenteditable="true" (keyup)="save(user, 'gender', $event)" (blur)="save(user, 'gender', $event)">{{user.gender}}</span>
+            </td>
+            <td>
+              <span contenteditable="true" (keyup)="save(user, 'department', $event)" (blur)="save(user, 'department', $event)">{{user.department}}</span>
+            </td>
+            <td>
+              <span contenteditable="true" (keyup)="save(user, 'isActive', $event)" (blur)="save(user, 'isActive', $event)">{{user.isActive}}</span>
+            </td>
+            <td>
+              <span contenteditable="true" (keyup)="save(user, 'hireDate', $event)" (blur)="save(user, 'hireDate', $event)">{{user.dob}}</span>
+            <td>
+              <span class="table-up">
+                <a class="indigo-text">
+                  <mdb-icon fas icon="long-arrow-alt-up"></mdb-icon>
+                </a>
+              </span>
+              <span class="table-down">
+                <a class="indigo-text">
+                  <mdb-icon fas icon="long-arrow-alt-down"></mdb-icon>
+                </a>
+              </span>
+            </td>
+            <td>
+              <a class="black-text" (click)="onEdit(user)"><mdb-icon fas icon="fas fa-edit"></mdb-icon></a>
+              <a class="red-text" (click)="remove(id)"><mdb-icon fas icon="fas fa-trash"></mdb-icon></a>
+          </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+ 
