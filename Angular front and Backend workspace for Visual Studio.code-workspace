@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "angular-tour-of-heroes-backend",
+			"path": "angular-tour-of-heroes-backend"
+		},
+		{
+			"name": "nodejs-express-mongodb",
+			"path": "nodejs-express-mongodb"
+		}
+	],
+	"settings": {}
+}

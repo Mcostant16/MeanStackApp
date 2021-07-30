@@ -11,6 +11,7 @@ import  { MatCheckboxModule }  from '@angular/material/checkbox';
 import  { MatNativeDateModule }  from '@angular/material/core';
 import  { MatButtonModule }  from '@angular/material/button';
 import  { MatDialogModule }  from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 
@@ -29,6 +30,7 @@ import  { MatDialogModule }  from '@angular/material/dialog';
    MatNativeDateModule,
    MatButtonModule,
    MatDialogModule,
+   MatSnackBarModule,
 ],
   exports: [
 	  MatToolbarModule,
@@ -42,6 +44,7 @@ import  { MatDialogModule }  from '@angular/material/dialog';
     MatNativeDateModule,
     MatButtonModule,
     MatDialogModule,
+    MatSnackBarModule,
 	],
   declarations: []
 })

@@ -61,7 +61,7 @@
            <mat-checkbox formControlName="isActive">Active User</mat-checkbox>
          </div>
          <div class="button-row">
-           <button mat-raised-button color="primary" type="submit" [disabled]="userService.form.invalid">Submit</button>
+           <button mat-raised-button color="primary" type="submit" [disabled]="userService.form.invalid" (click)="onSubmit()">Submit</button>
            <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
          </div>
       </div>

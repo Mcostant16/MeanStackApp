@@ -61,7 +61,14 @@ module.exports.updateUser = (req,res,next) => {
     var user= {
         fullName: req.body.fullName,
         email: req.body.email,
-        role: req.body.role
+        role: req.body.role,
+        mobile: req.body.mobile,
+        city: req.body.city,
+        state: req.body.state,
+        gender: req.body.gender,
+        department: req.body.department,
+        isActive: req.body.isActive,
+        dob: req.body.dob
     };
     
     User.findByIdAndUpdate(req.body._id, { $set: user }, {new: true}, (err, doc) => {

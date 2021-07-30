@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { ThrowStmt } from '@angular/compiler';
 import { User } from '../../shared/user.model';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NotificationService } from '../../shared/notification.service';
 
 @Component({
   selector: 'app-user-form',
@@ -12,7 +13,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class UserFormComponent implements OnInit {
 
-  constructor(public userService: UserService, public router: Router, public dialogRef: MatDialogRef<UserFormComponent>,
+  constructor(public userService: UserService, public notificationService : NotificationService, public router: Router, public dialogRef: MatDialogRef<UserFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   departments = [
@@ -37,5 +38,27 @@ export class UserFormComponent implements OnInit {
     this.userService.initializeFormGroup();
     this.dialogRef.close();
   }  
+
+  save( user: User, property : string, event: any) {
+    console.log(user);
+    const editField = event.target.textContent; 
+    user[property] = editField;
+    console.log(user);
+    console.log(event);
+    //console.log(property);
+    this.userService.updateUser(user)
+      .subscribe();
+  }
+
+  onSubmit() {
+    if (this.userService.form.valid) {
+      //this.userService.insertEmployee(this.userService.form.value);
+      this.userService.updateUser(this.userService.form.value).subscribe();
+      console.log(this.userService.form.value);
+      this.userService.form.reset();
+      this.userService.initializeFormGroup();
+      this.notificationService.success(':: Submitted successfully');
+    }
+  }
 
 }
