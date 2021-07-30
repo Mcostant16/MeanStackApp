@@ -25,10 +25,10 @@
           </tr>
           <tr *ngFor="let user of users; let id = index; let row">
             <td>
-              <span (keyup)="save(user, 'fullName', $event)" (blur)="save(user, 'fullName', $event)" contenteditable="true">{{user.fullName}}</span>
+              <span  contenteditable="true">{{user.fullName}}</span>
             </td>
             <td>
-              <span contenteditable="true" (keyup)="save(user, 'email', $event)" (blur)="save(user, 'email', $event)">{{user.email}}</span>
+              <span contenteditable="true" >{{user.email}}</span>
             </td>
             <td>
               <span contenteditable="true" (keyup)="save2(user, 'mobile', $event)" (blur)="save2(user, 'mobile', $event)">{{user.mobile}}</span>
