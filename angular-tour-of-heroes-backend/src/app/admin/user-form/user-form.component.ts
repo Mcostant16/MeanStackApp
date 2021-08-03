@@ -22,8 +22,8 @@ export class UserFormComponent implements OnInit {
     {id: 3, value: 'Dep 3'}];
    
    roles = [
-    {id: 3, value: 'Admin'},
-    {id: 2, value: 'User'}];
+    {id: 'Admin', value: 'Admin'},
+    {id: 'User', value: 'User'}];
 
   ngOnInit(): void {
   }
@@ -55,8 +55,7 @@ export class UserFormComponent implements OnInit {
       //this.userService.insertEmployee(this.userService.form.value);
       this.userService.updateUser(this.userService.form.value).subscribe();
       console.log(this.userService.form.value);
-      this.userService.form.reset();
-      this.userService.initializeFormGroup();
+      this.onClose();
       this.notificationService.success(':: Submitted successfully');
     }
   }

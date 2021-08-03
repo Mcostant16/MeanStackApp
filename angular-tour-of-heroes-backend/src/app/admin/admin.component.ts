@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../shared/user.service';
+import { DialogService } from '../shared/dialog.service';
 import { Router } from "@angular/router";
 import { ThrowStmt } from '@angular/compiler';
 import { User } from '../shared/user.model';
 import { MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
 import { UserFormComponent } from './user-form/user-form.component';
 import * as _ from 'lodash';
+import { NotificationService } from '../shared/notification.service';
 
 
 @Component({
@@ -17,7 +19,9 @@ export class AdminComponent implements OnInit {
 
   constructor(public userService: UserService, 
              private router: Router,
-             public dialog: MatDialog) { }
+             public dialog: MatDialog,
+             private dialogService: DialogService,
+             public notificationService : NotificationService) { }
  
   // users : User[] = [];
    users;
@@ -68,7 +72,8 @@ export class AdminComponent implements OnInit {
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
       dialogConfig.width = "60%";
-      this.dialog.open(UserFormComponent, dialogConfig);
+      this.dialog.open(UserFormComponent, dialogConfig).afterClosed()
+      .subscribe(()=> this.ngOnInit());
       
     }
 
@@ -113,13 +118,26 @@ export class AdminComponent implements OnInit {
     }
       
 
-  ngOnInit(): void {
-   this.getUsers();
-  }
+    ngOnInit(): void {
+      this.getUsers();
+    }
 
-  onClear() {
-    this.userService.form.reset();
-    this.userService.initializeFormGroup();
-  }
+    onClear() {
+      this.userService.form.reset();
+      this.userService.initializeFormGroup();
+    }
 
+    removeUser(_id: String){
+      this.dialogService.openConfirmDialog('Do you want to delete user?')
+      .afterClosed().subscribe(res => {
+        if (res) {
+          this.userService.deleteUser(_id).subscribe();
+          this.notificationService.warn('Deleted successfully');
+          this.ngOnInit();
+        }
+      });
+     
+     }
+  
+  
 }

@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => { 
     if(!ObjectId.isValid(req.params.id))
-       return res.status(400).send('No record with given id : ${req.params.id}');
+       return res.status(400).send(`No record with given id :  ${req.params.id}`);
 
     Hero.findById(req.params.id, (err, doc) => {
         if (!err) {res.send(doc); }
@@ -30,7 +30,7 @@ router.get('/:id', (req, res) => {
 
 router.get('/:id', (req, res) => { 
     if(!ObjectId.isValid(req.params.id))
-       return res.status(400).send('No record with given id : ${req.params.id}');
+       return res.status(400).send(`No record with given id :  ${req.params.id}`);
 
     Hero.findById(req.params.id, (err, doc) => {
         if (!err) {res.send(doc); }
@@ -70,7 +70,7 @@ router.post('/', async(req,res) => {
 
 router.put('/:id', (req,res) => { 
     if(!ObjectId.isValid(req.params.id))
-        return res.status(400).send('No record with given id : $(req.params.id');
+        return res.status(400).send(`No record with given id :  ${req.params.id}`);
     
     var hero = {
         name: req.body.name,
@@ -84,7 +84,7 @@ router.put('/:id', (req,res) => {
 
 router.delete('/:id', (req,res) => {
     if(!ObjectId.isValid(req.params.id))
-        return res.status(400).send('No record with given id : $(req.params.id');
+        return res.status(400).send(`No record with given id :  ${req.params.id}`);
     
     Hero.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) {res.send(doc); }

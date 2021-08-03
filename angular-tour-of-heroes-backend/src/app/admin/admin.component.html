@@ -31,28 +31,28 @@
               <span contenteditable="true" >{{user.email}}</span>
             </td>
             <td>
-              <span contenteditable="true" (keyup)="save2(user, 'mobile', $event)" (blur)="save2(user, 'mobile', $event)">{{user.mobile}}</span>
+              <span contenteditable="true" >{{user.mobile}}</span>
             </td>
             <td>
-              <span contenteditable="true" (keyup)="save(user, 'role', $event)" (blur)="save(user, 'role', $event)">{{user.role}}</span>
+              <span contenteditable="true" >{{user.role}}</span>
             </td>
             <td>
-              <span contenteditable="true" (keyup)="save(user, 'city', $event)" (blur)="save(user, 'city', $event)">{{user.city}}</span>
+              <span contenteditable="true" >{{user.city}}</span>
             </td>
             <td>
-              <span contenteditable="true" (keyup)="save(user, 'state', $event)" (blur)="save(user, 'state', $event)">{{user.state}}</span>
+              <span contenteditable="true" >{{user.state}}</span>
             </td>
             <td>
-              <span contenteditable="true" (keyup)="save(user, 'gender', $event)" (blur)="save(user, 'gender', $event)">{{user.gender}}</span>
+              <span contenteditable="true" >{{user.gender}}</span>
             </td>
             <td>
-              <span contenteditable="true" (keyup)="save(user, 'department', $event)" (blur)="save(user, 'department', $event)">{{user.department}}</span>
+              <span contenteditable="true" >{{user.department}}</span>
             </td>
             <td>
-              <span contenteditable="true" (keyup)="save(user, 'isActive', $event)" (blur)="save(user, 'isActive', $event)">{{user.isActive}}</span>
+              <span contenteditable="true" >{{user.isActive}}</span>
             </td>
             <td>
-              <span contenteditable="true" (keyup)="save(user, 'hireDate', $event)" (blur)="save(user, 'hireDate', $event)">{{user.dob}}</span>
+              <span contenteditable="true">{{user.dob | date : 'longDate'}}</span>
             <td>
               <span class="table-up">
                 <a class="indigo-text">
@@ -67,7 +67,7 @@
             </td>
             <td>
               <a class="black-text" (click)="onEdit(user)"><mdb-icon fas icon="fas fa-edit"></mdb-icon></a>
-              <a class="red-text" (click)="remove(id)"><mdb-icon fas icon="fas fa-trash"></mdb-icon></a>
+              <a class="red-text" (click)="removeUser(user._id)"><mdb-icon fas icon="fas fa-trash"></mdb-icon></a>
           </td>
           </tr>
         </table>

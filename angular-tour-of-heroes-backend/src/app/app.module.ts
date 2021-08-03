@@ -29,6 +29,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { MaterialModule } from "./material/material.module";
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
+import { ConfirmWindowComponent } from './confirm-window/confirm-window.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { MatDialog, MatDialogModule, MatDialogRef, MatDialogConfig } from '@angu
     SignInComponent,
     AdminComponent,
     UserFormComponent,
+    ConfirmWindowComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,7 @@ import { MatDialog, MatDialogModule, MatDialogRef, MatDialogConfig } from '@angu
   },AuthGuard, UserService],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA],
-  entryComponents: [UserFormComponent]
+  entryComponents: [UserFormComponent,ConfirmWindowComponent]
  
 })
 export class AppModule { }

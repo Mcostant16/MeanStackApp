@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 mongoose.set('useFindAndModify', false);
 const passport = require('passport');
 const _ = require('lodash');
+var ObjectId = require('mongoose').Types.ObjectId;
+
 
 const User = mongoose.model('User');
 
@@ -75,5 +77,21 @@ module.exports.updateUser = (req,res,next) => {
         if (!err) {res.send(doc); console.log("update took place " + req.body._id + req.body.fullName + req.body.email + req.body.role + doc ); }
         else { console.log('Error in User Update : ' + JSON.stringify(err. undefined, 2)); }
     });
-    
+
 }
+
+//delete specified user
+module.exports.deleteUser = (req,res,next) => {
+    
+    if(!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given id :  ${req.params.id}`);
+
+    User.findByIdAndRemove(req.params.id, (err, doc) => {
+        if (!err) {res.send(doc);  }
+        else { console.log('Error in Hero Delete: ' + JSON.stringify(err. undefined, 2)); }
+    });
+            
+}
+    
+
+    

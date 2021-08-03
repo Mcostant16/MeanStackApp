@@ -134,6 +134,16 @@ private handleError<T>(operation = 'operation', result?: T) {
       catchError(this.handleError<any>('updateHero'))
     );
   }
+
+  deleteUser(_id: String): Observable<unknown> {
+    console.log('delete is working');
+    console.log('delete is working');
+
+    return this.http.delete(environment.apiBaseUrl + '/'+ _id ,this.httpOptions).pipe(
+      tap(_ => console.log(`deleted hero id=${_id}`)),
+      catchError(this.handleError<any>('deleteUser'))
+    );
+  }
  
  populateForm(employee){
    this.form.setValue(_.omit(employee,['saltSecret','__v','first_name','last_name','password']));
