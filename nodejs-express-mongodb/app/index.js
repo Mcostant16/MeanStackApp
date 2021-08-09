@@ -6,7 +6,8 @@ const { mongoose } = require('./db.js');
 var heroController = require('./controllers/heroController.js');
 
 var app = express();
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 app.use(cors({ origin : 'http://localhost:4200'})); //check to see if correct
 //app.use(cors({ origin : 'http://localhost:4200/dashboard'}));
 

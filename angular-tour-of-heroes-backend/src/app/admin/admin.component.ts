@@ -87,7 +87,8 @@ export class AdminComponent implements OnInit {
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
       dialogConfig.width = "60%";
-      this.dialog.open(UserFormComponent, dialogConfig);
+      this.dialog.open(UserFormComponent, dialogConfig).afterClosed()
+      .subscribe(()=> this.ngOnInit());
     }
 
     changeValue(_id: string, property: string, event: any) {

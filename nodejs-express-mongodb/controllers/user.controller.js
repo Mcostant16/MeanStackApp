@@ -3,9 +3,40 @@ mongoose.set('useFindAndModify', false);
 const passport = require('passport');
 const _ = require('lodash');
 var ObjectId = require('mongoose').Types.ObjectId;
+const multer = require('multer'); //import library to handle file from form
+var myDate = new Date().toDateString();
+const uuid = require('uuid'); //create unique name for each photo uploaded
+
+
+//set the strategy for storage or parameters
+const storage = multer.diskStorage({ 
+    destination: function(req, file, cb) {
+        cb(null, './uploads/')
+    },
+    filename: function(req, file, cb) {
+        //console.log(file);
+        cb(null, uuid.v4() + ' & ' +  file.originalname); //file.filename & file.originalname
+    }
+});
+//only take certain type of files
+const fileFilter = (req, file, cb) => {
+    //reject a file
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+    cb(null, true);
+    } else {
+    cb(null, false);
+    }
+};
+const upload = multer({
+    storage: storage, 
+    limits: { fileSize: 1024 * 1024 * 5},
+    fileFilter: fileFilter
+}); //initiialize multer
+
 
 
 const User = mongoose.model('User');
+const profileImages = mongoose.model('profileImages');
 
 module.exports.register = (req,res,next) => {
     var user = new User();
@@ -59,8 +90,10 @@ module.exports.users= (req, res ) => {
 }
 
 module.exports.updateUser = (req,res,next) => {
-    
+ 
+
     var user= {
+        _id: req.body._id,
         fullName: req.body.fullName,
         email: req.body.email,
         role: req.body.role,
@@ -72,8 +105,16 @@ module.exports.updateUser = (req,res,next) => {
         isActive: req.body.isActive,
         dob: req.body.dob
     };
+    console.log(user._id);
+
+    if(user._id == null) {
+        user._id = new mongoose.mongo.ObjectID();
+    }
     
-    User.findByIdAndUpdate(req.body._id, { $set: user }, {new: true}, (err, doc) => {
+    console.log(user._id);
+   
+    
+    User.findByIdAndUpdate(user._id, { $set: user }, {upsert: true, new: true}, (err, doc) => {
         if (!err) {res.send(doc); console.log("update took place " + req.body._id + req.body.fullName + req.body.email + req.body.role + doc ); }
         else { console.log('Error in User Update : ' + JSON.stringify(err. undefined, 2)); }
     });
@@ -92,6 +133,30 @@ module.exports.deleteUser = (req,res,next) => {
     });
             
 }
-    
 
-    
+//must put it in an array in order to include the multer in the exports. Hence the [] at beginning and end;
+
+//must put it in an array in order to include the multer in the exports. Hence the [] at beginning and end;
+
+module.exports.uploadImage = [upload.single('myFile'),  (req,res,next) => {
+   console.log(req.file);
+    var profileimages = new profileImages();
+    profileimages._id = new mongoose.Types.ObjectId();
+    profileimages.profile_id = req.body.profile_id;
+    profileimages.description = req.body.description;
+    profileimages.comment = req.body.comment;
+    profileimages.album = req.body.album;
+    profileimages.image = req.file.path;
+    profileimages.save((err, doc) => {
+        if (!err)
+            res.send(doc);
+        else 
+        {
+            if (err.code == 11000)
+                res.status(422).send(['Duplicate email address found.']);
+            else
+                return next(err);
+        }   
+           
+    });
+}]

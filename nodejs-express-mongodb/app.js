@@ -10,9 +10,11 @@ const passport = require('passport');
 const rtsIndex = require('./routes/index.router');
 
 var app = express();
+app.use(express.json());
+app.use(express.urlencoded({extended: true})); //this fixed everything.
 var heroController = require('./controllers/heroController.js');
 //middleware
-app.use(bodyParser.json());  // this needs to be updated.
+//app.use(bodyParser.json());  // this needs to be updated.
 //app.json();
 app.use(cors());
 app.use(passport.initialize());

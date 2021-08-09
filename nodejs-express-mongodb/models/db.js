@@ -6,5 +6,6 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true,useUnifiedTopo
 });
 
 require('./user.model');
+require('./profileImages.model');
 
 module.exports = mongoose;
