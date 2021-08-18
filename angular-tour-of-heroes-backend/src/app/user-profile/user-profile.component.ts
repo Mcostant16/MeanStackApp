@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../shared/user.service';
+import { ImagesService } from '../shared/images.service';
 import { Router } from "@angular/router";
 import { ThrowStmt } from '@angular/compiler';
+import { NgForm } from "@angular/forms";
+import { Profile } from '../shared/profile-images.model';
 
 @Component({
   selector: 'app-user-profile',
@@ -11,20 +14,57 @@ import { ThrowStmt } from '@angular/compiler';
 export class UserProfileComponent implements OnInit {
  
   userDetails;
-  constructor(private userService: UserService, private router: Router) { }
+  //selectedFile : File;
+  public profile: Profile;
+ 
+
+  constructor(private userService: UserService, private router: Router, private imagesService: ImagesService ) { 
+    this.profile = new Profile();
+    this.profile.profile_id = '';
+    this.profile.description = '';
+    this.profile.comment = '';
+    this.profile.album = '';
+    this.profile.image = null;
+  }
 
   ngOnInit(): void {
     this.userService.getUserProfile().subscribe(
       res=>{
         this.userDetails = res['user'];
+        this.profile.profile_id = this.userDetails._id;
       },
       err=>{ }
     )
   }
 
+  
   onLogout(){ 
     this.userService.deleteToken();
     this.router.navigate(['/login']);
   }
 
+
+   uploadFile(){
+  //console.log(this.userDetails._id);
+    console.log(this.profile.description);
+    console.log(this.profile.profile_id);
+    //console.log(this.selectedFile);
+   }
+   
+   onFileSelected(event){
+     this.profile.image = <File>event.target.files[0];
+     console.log(event);
+   }
+
+   uploadFileForm(){
+    const fd = new FormData();
+    fd.append('myFile', this.profile.image, this.profile.image.name);  //must append images and fields.
+    fd.append('profile_id', this.profile.profile_id);
+    fd.append('description', this.profile.description);
+    fd.append('comment', this.profile.comment);
+    fd.append('album', this.profile.album);
+    this.imagesService.onUpload(fd).subscribe(res => {
+      console.log(res);
+    });
+  }
 }

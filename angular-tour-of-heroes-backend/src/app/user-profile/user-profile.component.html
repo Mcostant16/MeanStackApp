@@ -26,10 +26,33 @@
                 <input type="button" (click)="onLogout()" value="logout" />
             </td>
         </tr>
-        <tr>
-            <td colspan="2" class="text-center">
-                <input type="button" (click)="onLogout2()" value="upload photo" />
-            </td>
-        </tr>
     </tbody>
 </table>
+    <br>
+<div class="center">
+    <h2>Hello World</h2>
+    <div> <input type="file" (change)="onFileSelected($event)" value="upload photo" /></div>
+    <div> <input type="button" (click)="uploadFile()" value="upload photo" /></div>
+    <p>Value: {{ profile.profile_id }}</p>
+
+    <form #uploadImageForm="ngForm" (ngSubmit)="uploadImageForm.valid && uploadFileForm()">
+        <input type="text" name="description" #description="ngModel" [(ngModel)]="profile.description" placeholder="Description" required
+        [ngClass]="{'invalid-textbox' :uploadImageForm.submitted && !description.valid }" >
+    <div *ngIf="uploadImageForm.submitted && description.errors?.pattern">
+        <label class="validation-message">Invalid Profile Id.</label>
+    </div>
+        <input type="text" name="album" #album="ngModel" [(ngModel)]="profile.album" placeholder="Album"  required
+        [ngClass]="{'invalid-textbox' :uploadImageForm.submitted && !album.valid }">
+    <div *ngIf="uploadImageForm.submitted && album.errors?.pattern">
+        <label class="validation-message">Invalid Album.</label>
+    </div>
+        <textarea class="form-text-area" name="comment" #comment="ngModel" [(ngModel)]="profile.comment" placeholder="Comment" required minlength="4"
+            [ngClass]="{'invalid-textbox' :uploadImageForm.submitted && !comment.valid }" ></textarea>
+    <div *ngIf="uploadImageForm.submitted && comment.errors?.minlength">
+            <label class="validation-message">Minimum 4 characters.</label>
+    </div>    
+        <input type="submit" value=" Upload Photo">
+        </form>
+
+</div> 
+

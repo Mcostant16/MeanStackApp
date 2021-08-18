@@ -10,6 +10,7 @@ const passport = require('passport');
 const rtsIndex = require('./routes/index.router');
 
 var app = express();
+app.use('/api/uploads', express.static('uploads'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true})); //this fixed everything.
 var heroController = require('./controllers/heroController.js');
@@ -19,7 +20,7 @@ var heroController = require('./controllers/heroController.js');
 app.use(cors());
 app.use(passport.initialize());
 app.use('/api', rtsIndex);
-
+app.use('/uploads', express.static('uploads'));
 //error handler
 app.use((err , req , res, next) => {
      if (err.name == 'ValidationError') {

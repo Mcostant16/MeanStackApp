@@ -11,7 +11,7 @@ const uuid = require('uuid'); //create unique name for each photo uploaded
 //set the strategy for storage or parameters
 const storage = multer.diskStorage({ 
     destination: function(req, file, cb) {
-        cb(null, './uploads/')
+        cb(null, './uploads')
     },
     filename: function(req, file, cb) {
         //console.log(file);
@@ -77,7 +77,7 @@ module.exports.userProfile = (req, res, next) => {
             if (!user)
                 return res.status(404).json({ status: false, message: 'User record not found.'});
             else 
-                return res.status(200).json({ status: true, user : _.pick(user,['fullName', 'email', 'role']) });
+                return res.status(200).json({ status: true, user : _.pick(user,['_id','fullName', 'email', 'role']) });
         }
     );
 }
@@ -159,4 +159,42 @@ module.exports.uploadImage = [upload.single('myFile'),  (req,res,next) => {
         }   
            
     });
-}]
+}];
+
+
+
+module.exports.uploads = (req, res, next) => {
+    profileImages.find()
+      .select("description comment album _id image")
+      .exec()
+      .then(docs => {
+        const response = {
+          count: docs.length,
+          products: docs.map(doc => {
+            return {
+              description: doc.description,
+              comment: doc.comment,
+              productImage: doc.image,
+              _id: doc._id,
+              request: {
+                type: "GET",
+                url: "http://localhost:3000/api/" + doc.image
+              }
+            };
+          })
+        };
+        //   if (docs.length >= 0) {
+        res.status(200).json(response);
+        //   } else {
+        //       res.status(404).json({
+        //           message: 'No entries found'
+        //       });
+        //   }
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        });
+      });
+  };
