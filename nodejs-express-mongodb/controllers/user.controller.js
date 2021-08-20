@@ -81,6 +81,20 @@ module.exports.userProfile = (req, res, next) => {
         }
     );
 }
+
+module.exports.userProfileImages = (req, res, next) => {
+    profileImages.find({ profile_id: req._id } , '-__v -updatedAt',
+        (err, images) => {
+            if (!images)
+                return res.status(404).json({ status: false, message: 'User profile images not found.'});
+            else 
+                console.log(images);
+                return res.status(200).json({ status: true, images });
+        }
+    );
+}
+
+
 //return all users and fields except password
 module.exports.users= (req, res ) => {
     User.find({},'-password', (err, docs)  => {
@@ -146,7 +160,7 @@ module.exports.uploadImage = [upload.single('myFile'),  (req,res,next) => {
     profileimages.description = req.body.description;
     profileimages.comment = req.body.comment;
     profileimages.album = req.body.album;
-    profileimages.image = req.file.path;
+    profileimages.image = "http://localhost:3000/api/" + req.file.path;
     profileimages.save((err, doc) => {
         if (!err)
             res.send(doc);

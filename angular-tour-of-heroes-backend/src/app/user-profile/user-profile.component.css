@@ -1,4 +1,28 @@
 
 .center {text-align: center;}
 
+/*bootstap image card css for profile*/
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+    height:150;
+    image-rendering: pixelated;
+    image-rendering: -webkit-optimize-contrast;
+  }
+/*style card im profile*/
+.customCard{
+    width:20%;
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+    margin-bottom: 10px; /* Added */
+    image-rendering: -webkit-optimize-contrast;
+  }
+.card-data {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
 

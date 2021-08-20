@@ -98,7 +98,11 @@ private handleError<T>(operation = 'operation', result?: T) {
   }
 
   getUserProfile() {
-    return this.http.get(environment.apiBaseUrl + '/userProfile')
+    return this.http.get(environment.apiBaseUrl + '/userProfile');
+  }
+
+  getUserProfileImages() {
+    return this.http.get(environment.apiBaseUrl + '/userProfileImages');
   }
 
   getUsers() {
