@@ -11,6 +11,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class HeroService {
   private heroesUrl = 'http://localhost:3000/heroes';  // URL to web api
+ // private heroesUrl = 'http://192.168.0.21:3000/heroes';  // URL to web on wifi network
   httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };

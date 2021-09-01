@@ -5,8 +5,16 @@ const _ = require('lodash');
 var ObjectId = require('mongoose').Types.ObjectId;
 const multer = require('multer'); //import library to handle file from form
 var myDate = new Date().toDateString();
+require('dotenv').config({ path: './exclude.env' });
 const uuid = require('uuid'); //create unique name for each photo uploaded
-
+//const axios = require("axios").create({baseUrl: "https://api.scripture.api.bible/v1/bibles/685d1470fe4d5c3b-01/passages/1CO.2?content-type=html&include-notes=false&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=true&use-org-id=false"});
+const axios = require("axios").default;
+let config = {
+    headers: {
+        'api-key': process.env.bible_api_key,
+         timeout: 1000,
+    }
+}
 
 //set the strategy for storage or parameters
 const storage = multer.diskStorage({ 
@@ -212,3 +220,75 @@ module.exports.uploads = (req, res, next) => {
         });
       });
   };
+
+//api for getting bible third part api using axios. 
+//bible api routes 
+module.exports.bibles = async (req, res, next) => {
+    
+    try {
+      
+        const response = await axios.get(
+          "https://api.scripture.api.bible/v1/bibles?language=eng&ids=65eec8e0b60e656b-01%2Cde4e12af7f28f599-01%2C06125adad2d5898a-01",
+          config // this config parameter is set at the top. //has api key
+        );
+        console.log(response.data);
+        //get only the fields i need using lodash map and pick functions.
+        var mapped = _.map(response.data.data, (o) => {return _.pick(o,"id","nameLocal","abbreviationLocal"); } );
+        res.send(mapped);
+      } catch (error) {
+        console.error(error);
+      }
+     
+
+};
+
+module.exports.bible = async (req, res, next) => {
+    
+    try {
+      
+        const response = await axios.get(
+          "https://api.scripture.api.bible/v1/bibles/685d1470fe4d5c3b-01/passages/1CO.2?content-type=html&include-notes=false&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=true&use-org-id=false",
+          config // this config parameter is set at the top. //has api key
+        );
+        console.log(response);
+        res.send(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+     
+
+};
+
+module.exports.books = async (req, res, next) => {
+    
+    try {
+      
+        const response = await axios.get(
+          "https://api.scripture.api.bible/v1/bibles/06125adad2d5898a-01/books?include-chapters=false",
+          config // this config parameter is set at the top. //has api key
+        );
+        console.log(response);
+        res.send(response.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+     
+
+};
+
+module.exports.chapters = async (req, res, next) => {
+    
+    try {
+      
+        const response = await axios.get(
+          "https://api.scripture.api.bible/v1/bibles/06125adad2d5898a-01/books/1TI/chapters",
+          config // this config parameter is set at the top. //has api key
+        );
+        console.log(response);
+        res.send(response.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+     
+
+};

@@ -569,6 +569,14 @@ form.normal-form{
       font-size: 20px;
 }
 
+//this class is used for styling the bible verse numbers
+.v {
+  font-size: 9px;
+  color: black;
+  font-weight: bold;
+  vertical-align: top;
+  padding-right: 2.5px;
+}
 
  html, body { height: 100%; }
  body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

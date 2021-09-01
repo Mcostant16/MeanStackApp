@@ -1,0 +1,25 @@
+p {
+    font-family: Lato;
+  }
+  
+ 
+
+.mat-select-panel {
+    background-color: blue
+  
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: rgb(0, 110, 255);
+    border-radius: 5px;
+    color: white;
+  }
+
+::ng-deep  .mat-select-placeholder {
+      color: white;
+  }
+
+::ng-deep  .mat-select-value{
+    color: white;
+}
+

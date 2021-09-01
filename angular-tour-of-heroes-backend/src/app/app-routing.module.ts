@@ -10,6 +10,7 @@ import { SignInComponent } from './user/sign-in/sign-in.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AdminComponent } from './admin/admin.component';
 import { UserFormComponent } from './admin/user-form/user-form.component';
+import { BibleComponent } from './user-profile/bible/bible.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -22,7 +23,8 @@ const routes: Routes = [
    children: [{ path: '', component: SignInComponent }] },
   { path: 'userprofile', component: UserProfileComponent,canActivate:[AuthGuard]},
   { path: 'admin', component: AdminComponent },  
-  { path: 'userform', component: UserFormComponent }  
+  { path: 'userform', component: UserFormComponent }  ,
+  { path: 'bible', component: BibleComponent }  
 ];
 
 

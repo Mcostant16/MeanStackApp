@@ -32,6 +32,8 @@ app.use((err , req , res, next) => {
 //'/api/register'
 app.use('/heroes', heroController);
 //start server
+//192.168.0.21 is the router IP address this has to be included if you want to access it from mobile phone etc on the network.
+//if youwant it to be on local host 3000 then just remove it. 
 app.listen(process.env.PORT, () => console.log(`Server started at port : ${process.env.PORT}`));
 
 
