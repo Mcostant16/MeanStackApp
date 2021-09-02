@@ -233,7 +233,7 @@ module.exports.bibles = async (req, res, next) => {
         );
         console.log(response.data);
         //get only the fields i need using lodash map and pick functions.
-        var mapped = _.map(response.data.data, (o) => {return _.pick(o,"id","nameLocal","abbreviationLocal"); } );
+        let mapped = _.map(response.data.data, (o) => {return _.pick(o,"id","nameLocal","abbreviationLocal"); } );
         res.send(mapped);
       } catch (error) {
         console.error(error);
@@ -242,12 +242,13 @@ module.exports.bibles = async (req, res, next) => {
 
 };
 
-module.exports.bible = async (req, res, next) => {
+module.exports.biblePassage = async (req, res, next) => {
     
     try {
-      
+        let chapter_ID = req.query.chapter_ID;
+        let bible_ID = req.query.bible_ID;
         const response = await axios.get(
-          "https://api.scripture.api.bible/v1/bibles/685d1470fe4d5c3b-01/passages/1CO.2?content-type=html&include-notes=false&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=true&use-org-id=false",
+          `https://api.scripture.api.bible/v1/bibles/${bible_ID}/passages/${chapter_ID}?content-type=html&include-notes=false&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=true&use-org-id=false`,
           config // this config parameter is set at the top. //has api key
         );
         console.log(response);
@@ -277,14 +278,21 @@ module.exports.books = async (req, res, next) => {
 };
 
 module.exports.chapters = async (req, res, next) => {
+    //chapters = '1TI/chapters';
     
+    //console.log(req.query);
     try {
-      
+        //get the url parameters that were set in the front end with query
+        let books_ID = req.query.books_ID;
+        let bible_ID = req.query.bible_ID;
         const response = await axios.get(
-          "https://api.scripture.api.bible/v1/bibles/06125adad2d5898a-01/books/1TI/chapters",
+          `https://api.scripture.api.bible/v1/bibles/${bible_ID}/books/${books_ID}/chapters`,
           config // this config parameter is set at the top. //has api key
         );
-        console.log(response);
+        //console.log(response);
+        //used lodash to remove objects wth property number and intro out.  
+        //There are no passages with this chapter_id and nothing returns.
+         _.remove(response.data.data, {number: "intro" } );
         res.send(response.data.data);
       } catch (error) {
         console.error(error);

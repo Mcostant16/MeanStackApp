@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Router } from "@angular/router";
 import { ThrowStmt } from '@angular/compiler';
 import { NgForm } from "@angular/forms";
@@ -28,9 +28,11 @@ export class BibleinfoService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True'}) };
 
-  constructor(public http: HttpClient) { }
+
+noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True'}) };
+
+constructor(public http: HttpClient) { }
 
   form: FormGroup = new FormGroup({
     _id: new FormControl(null),
@@ -48,7 +50,7 @@ export class BibleinfoService {
       profile_id: '',
       bible_id: '',
       books_id: null,
-      chapter_id: 0,
+      chapter_id: null,
       passage_id: '',
       verse_id: '',
     });
@@ -80,8 +82,11 @@ private handleError<T>(operation = 'operation', result?: T) {
   }; 
 }
 
-getBible() {
-  return this.http.get(environment.apiBaseUrl + '/bible');
+getbiblePassage(bibleId,chapterId) {
+  let params = new HttpParams();
+  params = params.append('bible_ID', bibleId);
+  params = params.append('chapter_ID', chapterId);
+  return this.http.get(environment.apiBaseUrl + '/biblePassage',{ params: params});
 }
 
 getBibles() {
@@ -92,7 +97,14 @@ getBooks() {
   return this.http.get(environment.apiBaseUrl + '/books');
 }
 
-getChapters() {
-  return this.http.get(environment.apiBaseUrl + '/chapters');
+getChapters(bibleId, bookId) {
+  //use HttpParams to append parameters to pass to query string on backend to retrieve correct chapters
+  let params = new HttpParams();
+  params = params.append('bible_ID', bibleId);
+  params = params.append('books_ID', bookId);
+  return this.http.get(environment.apiBaseUrl + '/chapters',{ params: params});
 }
+
+
+
 }

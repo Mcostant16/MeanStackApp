@@ -10,7 +10,7 @@
 
   
     <mat-form-field class="bible-select" appearance="outline">
-        <mat-select (selectionChange)="loadBooks($event)" formControlName="books_id" matInput placeholder="Bibles">
+        <mat-select (selectionChange)="loadBooks()" formControlName="bible_id" matInput placeholder="Bibles">
           <mat-option>None</mat-option>
             <ng-container *ngFor="let bible of bibleTranslations">
           <mat-option  value="{{bible.id}}">{{bible.abbreviationLocal}}-{{bible.nameLocal}}</mat-option>
@@ -19,8 +19,8 @@
        <mat-error >This field is mandatory</mat-error> 
      </mat-form-field>
 
-     <mat-form-field class="bible-select" appearance="outline">
-        <mat-select (selectionChange)="loadChapters($event)"  formControlName="books_id" matInput placeholder="Books">
+     <mat-form-field class="bible-select"  appearance="outline">
+        <mat-select (selectionChange)="loadChapters()"  formControlName="books_id" matInput placeholder="Books">
           <mat-option>None</mat-option>
             <ng-container *ngFor="let book of books">
           <mat-option  value="{{book.id}}">{{book.name}}</mat-option>
@@ -30,7 +30,7 @@
      </mat-form-field>
 
      <mat-form-field class="bible-select" appearance="outline">
-        <mat-select formControlName="books_id" matInput placeholder="Chapters">
+        <mat-select formControlName="chapter_id" matInput placeholder="Chapters">
           <mat-option>None</mat-option>
             <ng-container *ngFor="let chapter of chapters">
           <mat-option  value="{{chapter.id}}">{{chapter.reference}}</mat-option>
@@ -43,7 +43,7 @@
         <div class="example-label">Bible Passage</div>
         <div class="example-button-row">
           <button mat-raised-button>Basic</button>
-          <button mat-raised-button color="primary" (click)="getBible()">Primary</button> 
+          <button type="submit"  mat-raised-button color="primary" (click)="getbiblePassage()">Primary</button> 
         </div>
       </section>
     

@@ -13,7 +13,7 @@ router.put('/updateUser', jwtHelper.verifyJwtToken, ctrlUser.updateUser);
 router.delete('/:id', jwtHelper.verifyJwtToken, ctrlUser.deleteUser);
 router.post('/uploadImage',  ctrlUser.uploadImage);
 router.get('/uploads',  ctrlUser.uploads);
-router.get('/bible',  ctrlUser.bible);
+router.get('/biblePassage',  ctrlUser.biblePassage);
 router.get('/bibles',  ctrlUser.bibles);
 router.get('/books',  ctrlUser.books);
 router.get('/chapters',  ctrlUser.chapters);

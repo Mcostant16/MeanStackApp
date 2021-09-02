@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NotificationService } from '../../shared/notification.service';
 import { Router } from "@angular/router";
-import { ThrowStmt } from '@angular/compiler';
+import { ThrowStmt, VariableAst } from '@angular/compiler';
 import { NgForm } from "@angular/forms";
 import { BibleinfoService } from '../../shared/bibleinfo.service';
 
@@ -16,6 +16,9 @@ export class BibleComponent implements OnInit {
   bibleTranslations: any; 
   books: any;
   chapters: any;
+ 
+  
+ 
   constructor(public BibleinfoService: BibleinfoService) { }
 
   ngOnInit(): void {
@@ -32,12 +35,14 @@ export class BibleComponent implements OnInit {
   ]
 
 
-getBible(){
-  this.BibleinfoService.getBible()
+getbiblePassage(){
+  //console.log(this.BibleinfoService.form.value); //get all values of form
+  let bible_id = this.BibleinfoService.form.controls.bible_id.value;
+  let chapter_id = this.BibleinfoService.form.controls.chapter_id.value;
+  this.BibleinfoService.getbiblePassage(bible_id,chapter_id)
   .subscribe(res=> {
     this.bibleInfo = res;
     console.log(res);
-  //  console.log(this.bibleInfo.data.content);
   },
   err=> {}
   )
@@ -48,13 +53,12 @@ getBibles(){
   .subscribe(res=> {
     this.bibleTranslations = res;
     console.log(res);
- //   console.log(this.bibleTranslations.data.content);
   },
   err=> {}
   )
 }
 
-loadBooks(event){
+loadBooks(){
   this.BibleinfoService.getBooks()
   .subscribe(res=> {
     this.books = res;
@@ -64,8 +68,10 @@ loadBooks(event){
   )
 }
 
-loadChapters(event){
-  this.BibleinfoService.getChapters()
+loadChapters(){
+  let bible_id = this.BibleinfoService.form.controls.bible_id.value;
+  let books_id = this.BibleinfoService.form.controls.books_id.value;
+  this.BibleinfoService.getChapters(bible_id,books_id)
   .subscribe(res=> {
     this.chapters = res;
     console.log(res);
