@@ -248,7 +248,7 @@ module.exports.biblePassage = async (req, res, next) => {
         let chapter_ID = req.query.chapter_ID;
         let bible_ID = req.query.bible_ID;
         const response = await axios.get(
-          `https://api.scripture.api.bible/v1/bibles/${bible_ID}/passages/${chapter_ID}?content-type=html&include-notes=false&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=true&use-org-id=false`,
+          `https://api.scripture.api.bible/v1/bibles/${bible_ID}/passages/${chapter_ID}?content-type=html&include-notes=false&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=true&use-org-id=true`,
           config // this config parameter is set at the top. //has api key
         );
         console.log(response);

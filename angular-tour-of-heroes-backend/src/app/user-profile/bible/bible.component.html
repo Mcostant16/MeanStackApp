@@ -1,4 +1,5 @@
 
+
 <br>
 <br>
 
@@ -42,16 +43,17 @@
      <section>
         <div class="example-label">Bible Passage</div>
         <div class="example-button-row">
-          <button mat-raised-button>Basic</button>
+          <button mat-raised-button (click)="addClickEvent()">Basic</button>
           <button type="submit"  mat-raised-button color="primary" (click)="getbiblePassage()">Primary</button> 
         </div>
       </section>
     
        <p></p>
-        <div *ngIf="bibleInfo" [innerHTML]="bibleInfo.data.content"></div>
       
-
-    
+      <app-c [bibleInfoChild]="bibleInfo">
+        </app-c>
+  
+      
     </div>
 </div>
   </form>

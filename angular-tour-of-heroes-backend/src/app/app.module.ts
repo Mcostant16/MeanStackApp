@@ -31,6 +31,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmWindowComponent } from './confirm-window/confirm-window.component';
 import { BibleComponent } from './user-profile/bible/bible.component';
+import { BibleChildComponent } from './user-profile/bible/bible-child/bible-child.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { BibleComponent } from './user-profile/bible/bible.component';
     UserFormComponent,
     ConfirmWindowComponent,
     BibleComponent,
+    BibleChildComponent,
   ],
   imports: [
     BrowserModule,

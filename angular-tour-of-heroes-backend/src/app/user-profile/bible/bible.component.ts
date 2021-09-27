@@ -1,30 +1,34 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewChecked, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { NotificationService } from '../../shared/notification.service';
 import { Router } from "@angular/router";
 import { ThrowStmt, VariableAst } from '@angular/compiler';
 import { NgForm } from "@angular/forms";
 import { BibleinfoService } from '../../shared/bibleinfo.service';
+import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeHtml} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-bible',
   templateUrl: './bible.component.html',
-  styleUrls: ['./bible.component.scss']
+  styleUrls: ['./bible.component.scss'],
+  //encapsulation: ViewEncapsulation.None
 })
+
+
 export class BibleComponent implements OnInit {
-  
-  bibleInfo: any; 
+  bibleInfo: SafeHtml;
+  bibleHtmlData: any; 
   bibleTranslations: any; 
   books: any;
   chapters: any;
  
-  
- 
-  constructor(public BibleinfoService: BibleinfoService) { }
+  constructor(public BibleinfoService: BibleinfoService, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this.getBibles(); 
-    
-  }
+    //this.getbiblePassage();
+    //this.bibleInfo = this.sanitizer.bypassSecurityTrustHtml('<button type="button" id="submitButton"  class="newAwesomeClass (click)="showmessage()">Button</button>');
+    }
+
 
   bibles = [
    {book_id: 1 , books: 'Genesis'},
@@ -39,14 +43,18 @@ getbiblePassage(){
   //console.log(this.BibleinfoService.form.value); //get all values of form
   let bible_id = this.BibleinfoService.form.controls.bible_id.value;
   let chapter_id = this.BibleinfoService.form.controls.chapter_id.value;
-  this.BibleinfoService.getbiblePassage(bible_id,chapter_id)
+  //this.BibleinfoService.getbiblePassage('06125adad2d5898a-01','EXO.1')
+  this.BibleinfoService.getbiblePassage(bible_id, chapter_id)
   .subscribe(res=> {
-    this.bibleInfo = res;
-    console.log(res);
-  },
+  this.bibleHtmlData = res;
+    //console.log(res);
+    this.bibleInfo = this.sanitizer.bypassSecurityTrustHtml('<a [routerLink]="" class="newAwesomeClass" (click)="showmessage()">'+ this.bibleHtmlData.data.content + '</a>');
+ },
   err=> {}
   )
 }
+
+
 
 getBibles(){
   this.BibleinfoService.getBibles()
@@ -80,5 +88,12 @@ loadChapters(){
   )
 }
 
+addClickEvent() {
 
 }
+
+
+
+}
+
+
