@@ -1,9 +1,11 @@
-import { Component, SimpleChanges, OnInit, Renderer2, ElementRef, Input,   OnChanges } from '@angular/core';
+import { Component, SimpleChanges, OnInit, Renderer2, ElementRef, Input,   OnChanges,  ChangeDetectorRef,  
+  ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeHtml} from '@angular/platform-browser';
 @Component({
   selector: 'app-c',
   templateUrl: './bible-child.component.html',
-  styleUrls: ['./bible-child.component.scss']
+  styleUrls: ['./bible-child.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BibleChildComponent implements OnChanges, OnInit  {
 
@@ -12,9 +14,10 @@ export class BibleChildComponent implements OnChanges, OnInit  {
   btnElement: any;
   lifecycleTicks: number = 0;
   listenFunc: Function;
+  bibleInfoCheck;
   
   constructor(private elementRef: ElementRef, private renderer2: Renderer2,
-     private sanitizer: DomSanitizer,) { }
+     private sanitizer: DomSanitizer,private cd: ChangeDetectorRef) { }
   
 
 ngOnInit(): void {
@@ -22,26 +25,30 @@ ngOnInit(): void {
 }
 
 ngOnChanges(changes: SimpleChanges){
-  //I believe the settimout is needed here to trigger change detection.... I am not really sure this was the only way to get it to work...
-  setTimeout( ()=> {
-  if (this.elementRef.nativeElement.querySelector(".newAwesomeClass")) {
-  this.btnElement = this.elementRef.nativeElement.querySelector(".newAwesomeClass");
-  this.listenFunc = this.renderer2.listen(this.btnElement , 'click', (event) => {
-    // Do something with 'event'
-    alert('hello listener');
-    this.showmessage();
-    console.log(this.lifecycleTicks++);
-    console.log(event);
-   });
-  }
-}); 
- // console.log(this.lifecycleTicks++);
-  if(changes.bibleInfoChild.currentValue) {
-  
- }
+  //used detech changes as alternative to setTimout I believe it works better and is more angular...
+  this.cd.detectChanges();
+  this.addEventListeners();
+  console.log(this.lifecycleTicks++);
+ 
 }
+
+
+addEventListeners(){
+  if (this.elementRef.nativeElement.querySelector(".newAwesomeClass")) {
+    this.btnElement = this.elementRef.nativeElement.querySelector(".newAwesomeClass");
+    this.listenFunc = this.renderer2.listen(this.btnElement , 'click', (event) => {
+      // Do something with 'event'
+     // alert('hello listener');
+      this.showmessage();
+      console.log(this.lifecycleTicks++);
+      console.log(event);
+     });
+    }
+  }
+
+
 showmessage() {
-    alert('hello world');
+  alert('hello world');
 }
 
 ngOnDestroy() {
