@@ -32,7 +32,7 @@ import { MatDialog, MatDialogModule, MatDialogRef, MatDialogConfig } from '@angu
 import { ConfirmWindowComponent } from './confirm-window/confirm-window.component';
 import { BibleComponent } from './user-profile/bible/bible.component';
 import { BibleChildComponent } from './user-profile/bible/bible-child/bible-child.component';
-
+import { ColorPickerModule } from 'ngx-color-picker';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +61,7 @@ import { BibleChildComponent } from './user-profile/bible/bible-child/bible-chil
 	  MaterialModule,
     ReactiveFormsModule,
     MatDialogModule,
+    ColorPickerModule,
  ],
 	// The HttpClientInMemoryWebApiModule module intercepts HTTP requests
    // and returns simulated server responses.

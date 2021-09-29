@@ -20,6 +20,7 @@ export class BibleComponent implements OnInit {
   bibleTranslations: any; 
   books: any;
   chapters: any;
+  
  
   constructor(public BibleinfoService: BibleinfoService, private sanitizer: DomSanitizer) {}
 

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CComponent } from './c.component';
+import { BibleChildComponent } from './bible-child.component';
 
 describe('CComponent', () => {
-  let component: CComponent;
-  let fixture: ComponentFixture<CComponent>;
+  let component: BibleChildComponent;
+  let fixture: ComponentFixture<BibleChildComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CComponent ]
+      declarations: [ BibleChildComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CComponent);
+    fixture = TestBed.createComponent(BibleChildComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
