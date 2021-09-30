@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'userprofile', component: UserProfileComponent,canActivate:[AuthGuard]},
   { path: 'admin', component: AdminComponent },  
   { path: 'userform', component: UserFormComponent }  ,
-  { path: 'bible', component: BibleComponent }  
+  { path: 'bible', component: BibleComponent,canActivate:[AuthGuard] }  
 ];
 
 

@@ -62,6 +62,9 @@ constructor(public http: HttpClient) { }
   { value: '3', label: 'Option 3' },
 ];
 
+bibleId: string;
+chapterId:string;
+
     /*
  * Handle Http operation that failed.
  * Let the app continue.
@@ -83,6 +86,8 @@ private handleError<T>(operation = 'operation', result?: T) {
 }
 
 getbiblePassage(bibleId,chapterId) {
+  this.bibleId = bibleId; ////set bibleId to save highlights
+  this.chapterId = chapterId; //set chapterId to save highlights
   let params = new HttpParams();
   params = params.append('bible_ID', bibleId);
   params = params.append('chapter_ID', chapterId);
@@ -105,6 +110,15 @@ getChapters(bibleId, bookId) {
   return this.http.get(environment.apiBaseUrl + '/chapters',{ params: params});
 }
 
+//going to use this to save info about user bible info
+saveAccountInfo(bibleId,chapterId) {
+  this.bibleId = bibleId; ////set bibleId to save highlights
+  this.chapterId = chapterId; //set chapterId to save highlights
+  let params = new HttpParams();
+  params = params.append('bible_ID', bibleId);
+  params = params.append('chapter_ID', chapterId);
+  return this.http.get(environment.apiBaseUrl + '/biblePassage',{ params: params});
+}
 
 
 }

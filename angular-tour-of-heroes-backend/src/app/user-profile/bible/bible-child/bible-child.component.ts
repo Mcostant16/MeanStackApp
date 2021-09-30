@@ -16,8 +16,13 @@ export class BibleChildComponent implements OnChanges, OnInit  {
   lifecycleTicks: number = 0;
   listenFunc: Function;
   bibleInfoCheck;
-  bibleStyle: any;
+  bibleStyle: string;
   color: any;
+  verseArray: string [] = [];
+  uniqueVerseArray: string [] = [];
+  verseInfo: { bibleverse: "",
+               background: ""}; 
+
   
   constructor(private elementRef: ElementRef, private renderer2: Renderer2,
      private sanitizer: DomSanitizer,private cd: ChangeDetectorRef) { }
@@ -47,12 +52,29 @@ addEventListeners(){
       console.log(event);
       console.log(event.target.dataset.verseId);
       this.bibleStyle = event.target.dataset.verseId
+      const index = this.verseArray.indexOf(this.bibleStyle);
       const el = this.elementRef.nativeElement.querySelectorAll(`[data-verse-id="${this.bibleStyle}"]`);
-      el.forEach(element => {
-        this.renderer2.setStyle(element, 'background-color', this.color);
-      });
-    });
+      //only add the style if it is not yet in array and is not undefined
+      if (index > -1 || !this.bibleStyle) {
+        this.verseArray.splice(index, 1); //remove element from array
+        el.forEach(element => {
+          this.renderer2.removeClass(element, 'underlineClass');
+        });   
+      } 
+      else { 
+        el.forEach(element => {
+          this.renderer2.addClass(element, 'underlineClass');
+        });
+       // this.verseInfo.bibleverse = this.bibleStyle;
+        this.verseArray.push(this.bibleStyle);
+        console.log(this.verseArray);
+       }
+      
+      //this.uniqueVerseArray = [... new Set(this.verseArray)];
+      //console.log(this.uniqueVerseArray);
+     });
     }
+    
   }
 
 

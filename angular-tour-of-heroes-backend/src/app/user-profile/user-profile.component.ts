@@ -65,7 +65,7 @@ export class UserProfileComponent implements OnInit {
      console.log(event);
    }
 
-   uploadFileForm(){
+  uploadFileForm(){
     const fd = new FormData();
     fd.append('myFile', this.profile.image, this.profile.image.name);  //must append images and fields.
     fd.append('profile_id', this.profile.profile_id);
