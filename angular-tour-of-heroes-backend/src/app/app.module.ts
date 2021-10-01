@@ -29,10 +29,14 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { MaterialModule } from "./material/material.module";
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
+import { MatBottomSheetModule, MatBottomSheet, MatBottomSheetConfig, MatBottomSheetRef} from '@angular/material/bottom-sheet';
 import { ConfirmWindowComponent } from './confirm-window/confirm-window.component';
 import { BibleComponent } from './user-profile/bible/bible.component';
 import { BibleChildComponent } from './user-profile/bible/bible-child/bible-child.component';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { BibleBottomSheetComponent } from './user-profile/bible/bible-child/bible-bottom-sheet/bible-bottom-sheet.component';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +54,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
     ConfirmWindowComponent,
     BibleComponent,
     BibleChildComponent,
+    BibleBottomSheetComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +67,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
     ReactiveFormsModule,
     MatDialogModule,
     ColorPickerModule,
+    MatBottomSheetModule,
  ],
 	// The HttpClientInMemoryWebApiModule module intercepts HTTP requests
    // and returns simulated server responses.
@@ -76,7 +82,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
   },AuthGuard, UserService],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA],
-  entryComponents: [UserFormComponent,ConfirmWindowComponent]
+  entryComponents: [UserFormComponent,ConfirmWindowComponent,BibleBottomSheetComponent]
  
 })
 export class AppModule { }
