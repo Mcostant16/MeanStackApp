@@ -4,29 +4,22 @@
     <button class="btn-dialog-close" mat-stoked-button (click)="onClose()" tabIndex="-1"><mat-icon>x</mat-icon></button>
   </mat-toolbar>
 
-  <form class="example-form">
-    <mat-form-field class="example-half-width" appearance="fill">
-      <mat-label>Favorite food</mat-label>
-      <input class="circle2" matInput type="color">
-    </mat-form-field>
+ <div *ngIf='toggle'>
+  <app-color-picker-component (exportColorEvent)="updateHighLightColors($event)" (toggleColorPickerEvent)="changeToggle($event)"></app-color-picker-component>
+</div>
 
-    <form class="example-form">
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Pick a Color</mat-label>
-          <input class="circle2" matInput type="color">
-        </mat-form-field>
+
+<div *ngIf='!toggle'class="example-button-row">
+    <button mat-mini-fab [style.background]="highLightArray[0]">Basic</button>
+    <button mat-mini-fab [style.background]="highLightArray[1]">Primary</button>
+    <button mat-mini-fab [style.background]="highLightArray[2]">Accent</button>
+    <button mat-mini-fab [style.background]="highLightArray[3]">Warn</button>
+    <button mat-mini-fab [style.background]="highLightArray[4]">Disabled</button>
+    <button mat-mini-fab [style.background]="highLightArray[5]"></button>
+    <a mat-mini-fab [style.background]="highLightArray[6]" routerLink=".">Link</a>
+    <button mat-mini-fab [style.background]="highLightArray[7]">Basic</button>
+    <button mat-mini-fab [style.background]="highLightArray[8]">Primary</button>
+
+    <button  #ignoredButton class="btn btn-primary" (click)="toggle=!toggle;">Toggle</button>
+  </div>
   
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Leave a comment</mat-label>
-      <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
-    </mat-form-field>
-  </form>
-  <label>Select a Color</label>
-  <input class="circle" [(colorPicker)]="color" [style.background]="color"/>
-   <button type="submit"  mat-raised-button color="primary" >Primary</button>
-   <button type="submit"  mat-raised-button color="primary" >Secondary</button>
-   <button type="submit"  mat-raised-button color="primary" >Thirds</button>
-   <button type="submit"  mat-raised-button color="primary" >Fourth</button>
-   <button type="submit"  mat-raised-button color="primary" >Fifth</button>
-   <button type="submit"  mat-raised-button color="primary" >Sixth</button>
- 

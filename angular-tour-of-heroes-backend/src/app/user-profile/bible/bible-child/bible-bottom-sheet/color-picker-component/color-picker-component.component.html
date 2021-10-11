@@ -1,0 +1,12 @@
+
+ 
+
+
+<div class="center">
+  <button  #ignoredButton2 class="btn btn-dark btn-block test mr-1" (click)="changeToggleValue()">Cancel</button> 
+    
+    <input #ignoredInput [ngStyle]="{'display':'none'}"  [style.background]="color" [cpDialogDisplay]="'inline'"  
+       [cpFallbackColor]="'#f200bd'" [cpIgnoredElements]="[ignoredInput]" [(cpToggle)]="toggle" [value]="color6"  [(colorPicker)]="color6"/>
+   
+   <button  #ignoredButton3 class="btn btn-primary btn-block test ml-1 text-body font-weight-bold" [style.background]="color6" (click)="updateColorsArray()">Choose</button>
+</div>

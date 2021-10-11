@@ -5,14 +5,17 @@ import { ThrowStmt } from '@angular/compiler';
 import { NgForm } from "@angular/forms";
 import { environment} from '../../environments/environment';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { FormGroup, FormControl, Validators  } from '@angular/forms';
 import { BibleInfo } from './bible-info.model';
+import { Colors } from './color-profile.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BibleinfoService {
+
+
 
   selectedBibleInfo: BibleInfo = {
       _id: '',
@@ -23,6 +26,25 @@ export class BibleinfoService {
       passage_id: '',
       verse_id: ''
   };
+
+  
+  userColors: Colors = {
+    _id: '',
+    profile_id: '',
+    color1: 'YELLOW',
+    color2: 'GRAPEFRUIT',
+    color3: 'PURPLE',
+    color4: 'TEAL',
+    color5: 'SEAGREEN',
+    color6: 'CHARTREUSE',
+    color7: 'ORANGE',
+    color8: 'SALMON',
+    color9: 'INDIGO',
+    color10: 'PINK'
+};
+
+public colorSource = new BehaviorSubject<Colors>(this.userColors);
+currentColor = this.colorSource.asObservable();
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -119,6 +141,7 @@ saveAccountInfo(bibleId,chapterId) {
   params = params.append('chapter_ID', chapterId);
   return this.http.get(environment.apiBaseUrl + '/biblePassage',{ params: params});
 }
+
 
 
 }

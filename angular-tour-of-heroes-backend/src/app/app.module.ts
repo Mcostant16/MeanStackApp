@@ -36,6 +36,7 @@ import { BibleChildComponent } from './user-profile/bible/bible-child/bible-chil
 import { ColorPickerModule } from 'ngx-color-picker';
 import { BibleBottomSheetComponent } from './user-profile/bible/bible-child/bible-bottom-sheet/bible-bottom-sheet.component';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import { ColorPickerComponentComponent } from './user-profile/bible/bible-child/bible-bottom-sheet/color-picker-component/color-picker-component.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     BibleComponent,
     BibleChildComponent,
     BibleBottomSheetComponent,
+    ColorPickerComponentComponent,
   ],
   imports: [
     BrowserModule,
