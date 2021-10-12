@@ -10,16 +10,16 @@
 
 
 <div *ngIf='!toggle'class="example-button-row">
-    <button mat-mini-fab [style.background]="highLightArray[0]">Basic</button>
-    <button mat-mini-fab [style.background]="highLightArray[1]">Primary</button>
-    <button mat-mini-fab [style.background]="highLightArray[2]">Accent</button>
-    <button mat-mini-fab [style.background]="highLightArray[3]">Warn</button>
-    <button mat-mini-fab [style.background]="highLightArray[4]">Disabled</button>
-    <button mat-mini-fab [style.background]="highLightArray[5]"></button>
-    <a mat-mini-fab [style.background]="highLightArray[6]" routerLink=".">Link</a>
-    <button mat-mini-fab [style.background]="highLightArray[7]">Basic</button>
-    <button mat-mini-fab [style.background]="highLightArray[8]">Primary</button>
-
+    <button mat-mini-fab [style.background]="profileColors.color1">Basic</button>
+    <button mat-mini-fab [style.background]="profileColors.color2">Primary</button>
+    <button mat-mini-fab [style.background]="profileColors.color3">Accent</button>
+    <button mat-mini-fab [style.background]="profileColors.color4">Warn</button>
+    <button mat-mini-fab [style.background]="profileColors.color5">Disabled</button>
+    <button mat-mini-fab [style.background]="profileColors.color6"></button>
+    <a mat-mini-fab [style.background]="profileColors.color7" routerLink=".">Link</a>
+    <button mat-mini-fab [style.background]="profileColors.color8">Basic</button>
+    <button mat-mini-fab [style.background]="profileColors.color9">Primary</button>
+    <button mat-mini-fab [style.background]="profileColors.color10" (click)="updateColor()"></button>
     <button  #ignoredButton class="btn btn-primary" (click)="toggle=!toggle;">Toggle</button>
   </div>
   

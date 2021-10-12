@@ -4,8 +4,8 @@ import { MatBottomSheet, MatBottomSheetConfig, MatBottomSheetRef} from '@angular
 //import { DialogService } from '../shared/dialog.service';
 import { BibleBottomSheetComponent } from './bible-bottom-sheet/bible-bottom-sheet.component';
 import {Overlay} from '@angular/cdk/overlay'; // need this to have scroll bar work when scrolling with bottomsheetopen
-
-
+import { Subscription } from 'rxjs';
+import { BibleinfoService } from '../../../shared/bibleinfo.service';
 
 @Component({
   selector: 'app-c',
@@ -15,7 +15,8 @@ import {Overlay} from '@angular/cdk/overlay'; // need this to have scroll bar wo
   encapsulation: ViewEncapsulation.None
 })
 export class BibleChildComponent implements OnChanges, OnInit  {
-
+  
+  clickEventsubscription:Subscription;
   //Component
   @Input() bibleInfoChild;
   btnElement: any;
@@ -33,7 +34,8 @@ export class BibleChildComponent implements OnChanges, OnInit  {
   removeUnderlineArr: string [] = [];
 
   constructor(private elementRef: ElementRef, private renderer2: Renderer2,
-     private sanitizer: DomSanitizer,private cd: ChangeDetectorRef,public bottomSheet: MatBottomSheet, overlay: Overlay) {
+     private sanitizer: DomSanitizer,private cd: ChangeDetectorRef,
+     public bottomSheet: MatBottomSheet, overlay: Overlay, private bibleIS: BibleinfoService) {
       this.dialogConfig = new MatBottomSheetConfig();
       this.dialogConfig.disableClose = true;
       this.dialogConfig.autoFocus = false;
@@ -44,7 +46,9 @@ export class BibleChildComponent implements OnChanges, OnInit  {
   
 
 ngOnInit(): void {
-
+  this.clickEventsubscription=this.bibleIS.getClickEvent().subscribe(()=>{
+    this.updateColor();
+    })
 }
 
 ngOnChanges(changes: SimpleChanges){
@@ -121,6 +125,11 @@ addEventListeners(){
     
   }
 
+updateColor(){
+  this.removeUnderlineArr.forEach(element => {
+    this.renderer2.setStyle(element, 'background-color', this.bibleIS.userColors.color1);
+  });
+}
 
 showmessage() {
   alert('hello world');
@@ -129,6 +138,7 @@ showmessage() {
 ngOnDestroy() {
   // Remove the listeners!
   this.listenFunc();
+  this.clickEventsubscription.unsubscribe();
 
 }
 

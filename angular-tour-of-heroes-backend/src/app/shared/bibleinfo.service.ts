@@ -5,7 +5,7 @@ import { ThrowStmt } from '@angular/compiler';
 import { NgForm } from "@angular/forms";
 import { environment} from '../../environments/environment';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, of, BehaviorSubject, Subject } from 'rxjs';
 import { FormGroup, FormControl, Validators  } from '@angular/forms';
 import { BibleInfo } from './bible-info.model';
 import { Colors } from './color-profile.model';
@@ -43,8 +43,9 @@ export class BibleinfoService {
     color10: 'PINK'
 };
 
-public colorSource = new BehaviorSubject<Colors>(this.userColors);
+private colorSource = new BehaviorSubject<Colors>(this.userColors);
 currentColor = this.colorSource.asObservable();
+private subject = new Subject<any>();
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -142,6 +143,12 @@ saveAccountInfo(bibleId,chapterId) {
   return this.http.get(environment.apiBaseUrl + '/biblePassage',{ params: params});
 }
 
+sendClickEvent(){
+  this.subject.next();
+}
 
+getClickEvent(): Observable<any>{
+  return this.subject.asObservable();
+}
 
 }

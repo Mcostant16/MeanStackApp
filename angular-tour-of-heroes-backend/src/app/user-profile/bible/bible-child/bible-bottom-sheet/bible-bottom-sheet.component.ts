@@ -41,4 +41,8 @@ export class BibleBottomSheetComponent implements OnInit {
   this.highLightArray = this.highLightArray.slice(-9);
  }
 
+ updateColor(){
+   this.bibleIS.sendClickEvent();
+ }
+
 }
