@@ -10,16 +10,16 @@
 
 
 <div *ngIf='!toggle'class="example-button-row">
-    <button mat-mini-fab [style.background]="profileColors.color1">Basic</button>
-    <button mat-mini-fab [style.background]="profileColors.color2">Primary</button>
-    <button mat-mini-fab [style.background]="profileColors.color3">Accent</button>
-    <button mat-mini-fab [style.background]="profileColors.color4">Warn</button>
-    <button mat-mini-fab [style.background]="profileColors.color5">Disabled</button>
-    <button mat-mini-fab [style.background]="profileColors.color6"></button>
-    <a mat-mini-fab [style.background]="profileColors.color7" routerLink=".">Link</a>
-    <button mat-mini-fab [style.background]="profileColors.color8">Basic</button>
-    <button mat-mini-fab [style.background]="profileColors.color9">Primary</button>
-    <button mat-mini-fab [style.background]="profileColors.color10" (click)="updateColor()"></button>
+    <button mat-mini-fab [style.background]="profileColors.color1"(click)="updateColor(profileColors.color1)"></button>
+    <button mat-mini-fab [style.background]="profileColors.color2"(click)="updateColor(profileColors.color2)"></button>
+    <button mat-mini-fab [style.background]="profileColors.color3"(click)="updateColor(profileColors.color3)"></button>
+    <button mat-mini-fab [style.background]="profileColors.color4"(click)="updateColor(profileColors.color4)"></button>
+    <button mat-mini-fab [style.background]="profileColors.color5"(click)="updateColor(profileColors.color5)"></button>
+    <button mat-mini-fab [style.background]="profileColors.color6"(click)="updateColor(profileColors.color6)"></button>
+    <button mat-mini-fab [style.background]="profileColors.color7"(click)="updateColor(profileColors.color7)"></button>
+    <button mat-mini-fab [style.background]="profileColors.color8"(click)="updateColor(profileColors.color8)"></button>
+    <button mat-mini-fab [style.background]="profileColors.color9"(click)="updateColor(profileColors.color9)"></button>
+    <button mat-mini-fab [style.background]="profileColors.color10"(click)="updateColor(profileColors.color10)"></button>
     <button  #ignoredButton class="btn btn-primary" (click)="toggle=!toggle;">Toggle</button>
   </div>
   

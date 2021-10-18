@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { Event } from '@angular/router';
+import { BibleinfoService } from '../../../../../shared/bibleinfo.service';
 
 
 @Component({
@@ -16,10 +17,10 @@ export class ColorPickerComponentComponent implements OnInit {
   toggle: boolean = true;
   color:any;
   colorPicked: string = "#E2F019";
-  public color6: string = '#0275d8';
+  public chosenColor: string = '#0275d8';
 
  
-  constructor() { }
+  constructor(public bibleIS: BibleinfoService) { }
 
   ngOnInit(): void {
   }
@@ -29,8 +30,14 @@ export class ColorPickerComponentComponent implements OnInit {
   }
 
   updateColorsArray(){
-    this.exportColorEvent.emit(this.color6);
+    //two different ways of sharing data the top 2 lines share through emit from child to parent component 
+    //sharing the color selected in color component with bottom sheet and hiding the color picker
+    //third line sets the color.
+    //fourthline uses the serice to call the grandparent component bible-child to apply style to verses from color picker.
+    this.exportColorEvent.emit(this.chosenColor);
     this.toggleColorPickerEvent.emit(false);
+    this.bibleIS.setColor(this.chosenColor);
+    this.bibleIS.sendClickEvent();
   }
 
 }

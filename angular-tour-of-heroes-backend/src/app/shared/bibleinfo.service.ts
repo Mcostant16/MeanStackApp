@@ -32,17 +32,17 @@ export class BibleinfoService {
     _id: '',
     profile_id: '',
     color1: 'YELLOW',
-    color2: 'GRAPEFRUIT',
-    color3: 'PURPLE',
-    color4: 'TEAL',
-    color5: 'SEAGREEN',
+    color2: 'LIGHTBLUE',
+    color3: 'PLUM',
+    color4: 'LAVENDER',
+    color5: 'PALEGREEN',
     color6: 'CHARTREUSE',
     color7: 'ORANGE',
     color8: 'SALMON',
-    color9: 'INDIGO',
+    color9: 'LIGHTCYAN',
     color10: 'PINK'
 };
-
+public updateColor: string;
 private colorSource = new BehaviorSubject<Colors>(this.userColors);
 currentColor = this.colorSource.asObservable();
 private subject = new Subject<any>();
@@ -142,6 +142,11 @@ saveAccountInfo(bibleId,chapterId) {
   params = params.append('chapter_ID', chapterId);
   return this.http.get(environment.apiBaseUrl + '/biblePassage',{ params: params});
 }
+
+setColor(selectedColor: string){
+  this.updateColor = selectedColor;
+}
+
 
 sendClickEvent(){
   this.subject.next();

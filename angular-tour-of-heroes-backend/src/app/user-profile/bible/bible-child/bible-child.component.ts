@@ -32,6 +32,7 @@ export class BibleChildComponent implements OnChanges, OnInit  {
   bottomSheetOpen: boolean = false; 
   dialogConfig: MatBottomSheetConfig;
   removeUnderlineArr: string [] = [];
+  private bottomSheetRef: MatBottomSheetRef;
 
   constructor(private elementRef: ElementRef, private renderer2: Renderer2,
      private sanitizer: DomSanitizer,private cd: ChangeDetectorRef,
@@ -46,6 +47,7 @@ export class BibleChildComponent implements OnChanges, OnInit  {
   
 
 ngOnInit(): void {
+ // subscribe to getClickEvent() in service when triggered run this.updateColor Function
   this.clickEventsubscription=this.bibleIS.getClickEvent().subscribe(()=>{
     this.updateColor();
     })
@@ -95,20 +97,21 @@ addEventListeners(){
           //check and see if the bottomsheet menu is open and subscribe to events on observables.
           if(!this.bottomSheetOpen){
       
-            const bottomSheetRef = this.bottomSheet.open(BibleBottomSheetComponent, this.dialogConfig);
+            this.bottomSheetRef = this.bottomSheet.open(BibleBottomSheetComponent, this.dialogConfig);
             
-            bottomSheetRef.afterOpened().subscribe( ()=> {
+            this.bottomSheetRef.afterOpened().subscribe( ()=> {
                 this.bottomSheetOpen = true;
                 this.cd.detectChanges();
             });
             
-            bottomSheetRef.afterDismissed().subscribe( ()=> {
+            this.bottomSheetRef.afterDismissed().subscribe( ()=> {
                 //this.booleanValue = true;
                 //this.cd.detectChanges();
                 this.verseArray = [];
                 this.removeUnderlineArr.forEach(element => {
                   this.renderer2.removeClass(element, 'underlineClass');
                 });  
+                this.removeUnderlineArr = [];
                 this.bottomSheetOpen = false;
                 this.cd.detectChanges();
                 
@@ -126,9 +129,13 @@ addEventListeners(){
   }
 
 updateColor(){
+  //this function is triggered by the service that is subscribed to ngOnit 
+  //when the clickevent is triggered it runs this function to highlight verses and close sheet
   this.removeUnderlineArr.forEach(element => {
-    this.renderer2.setStyle(element, 'background-color', this.bibleIS.userColors.color1);
+    this.renderer2.setStyle(element, 'background-color', this.bibleIS.updateColor);
   });
+  this.bottomSheetRef.dismiss();
+
 }
 
 showmessage() {

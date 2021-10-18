@@ -14,15 +14,19 @@ import { Colors } from '../../../../shared/color-profile.model';
   encapsulation: ViewEncapsulation.None
 })
 export class BibleBottomSheetComponent implements OnInit {
-  color:any;
-  colorPicked: string = "#c2dcf3";
+  //color:any;
+  //colorPicked: string = "#c2dcf3";
   public toggle: boolean = false;
-  public highLightArray: string [] = ["YELLOW", "GRAPEFRUIT","PURPLE","TEAL", "SEAGREEN", "CHARTREUSE","ORANGE","SALMON","INDIGO"];
+  private word: string = 'color';
+  private x: number = 1;
+  private combination: string = this.word + this.x; 
+  //public highLightArray: string [] = ["YELLOW", "GRAPEFRUIT","PURPLE","TEAL", "SEAGREEN", "CHARTREUSE","ORANGE","SALMON","INDIGO"];
   profileColors: Colors;
+  private profileColorsSubscription$; 
   constructor(public bottomSheetRef: MatBottomSheetRef<BibleBottomSheetComponent>, public bibleIS: BibleinfoService) { }
   
   ngOnInit(): void {
-    this.bibleIS.currentColor.subscribe(currentColorResponse => this.profileColors = currentColorResponse)
+    this.profileColorsSubscription$ = this.bibleIS.currentColor.subscribe(currentColorResponse => this.profileColors = currentColorResponse);
   }
 
 
@@ -37,12 +41,24 @@ export class BibleBottomSheetComponent implements OnInit {
   }
 
  updateHighLightColors(color: string){
-  this.highLightArray.push(color);
-  this.highLightArray = this.highLightArray.slice(-9);
+   //console.log(color);
+   this.profileColors[this.word + this.x] = color;
+  //this.profileColors[4] = color;
+  //console.log(this.profileColors[this.word +this.x]);
+  //if last color has been update reset cplor
+  this.x === 10 ? this.x=1 : this.x++ ;
+
  }
 
- updateColor(){
+ updateColor(highLight: string){
+   this.bibleIS.setColor(highLight);
    this.bibleIS.sendClickEvent();
  }
+
+ ngOnDestroy() {
+  //unsubscribe to subscription
+  this.profileColorsSubscription$.unsubscribe();
+
+}
 
 }
