@@ -30,6 +30,7 @@ p {
 }
 
 .example-sidenav {
+  margin-top: 64px; //this is important because it is toolbar height if not used this navbar is covered by it.
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,7 +1,9 @@
 <ng-container>
   <mat-sidenav-container class="example-container">
  
-    <mat-sidenav #sidenav mode="side" fixedInViewport="true"  class="example-sidenav">
+    <mat-sidenav  #sidenav mode="side"  fixedInViewport="true"  class="example-sidenav">
+  
+
       <mat-card class="example-card">
         <mat-card-title>Shiba Inu</mat-card-title>
         <mat-card-subtitle>Dog Breed</mat-card-subtitle>
@@ -120,8 +122,8 @@
            <section>
               <div class="example-label">Bible Passage</div>
               <div class="example-button-row">
-                <button mat-raised-button (click)="sidenav.toggle()">Basic</button>
-                <button type="submit"  mat-raised-button color="primary" (click)="getbiblePassage()">Primary</button> 
+                <button mat-raised-button (click)="sidenav.toggle()">Notes</button>
+                <button type="submit"  mat-raised-button color="primary" (click)="getbiblePassage()">Passage</button> 
               </div>
             </section>
            
