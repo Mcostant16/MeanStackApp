@@ -4,6 +4,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
+body {
+  margin: 0;
+}
+
+html,body{
+  height: 100%;
+}
+
 
 h1 {
   color: #369;
@@ -461,12 +469,12 @@ label.validation-message{
   margin-bottom: 15px;
 }
 
-
+/*
 //add all code above this 
 div.tbarcontainer{
 		margin: 0px 40px;
 }
-
+*/
 .fill-remaining-space {
 	/*fills remaining, by using flexbox every toolbar rows uses a flexbox row layout. */
 	flex: 1 1 auto;

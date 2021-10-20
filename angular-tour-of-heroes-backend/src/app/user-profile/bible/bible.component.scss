@@ -22,6 +22,30 @@ p {
 ::ng-deep  .mat-select-value{
     color: white;
 }
- 
+
+
+.example-card {
+  max-width: 100%;
+  margin-bottom: 8px;
+}
+
+.example-sidenav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  background: rgba(2, 117, 216, 1);
+}
+
+.flex-2 {
+  display: flex;
+  align-items: stretch;
+}
+
+
+
+
+
+
 
 

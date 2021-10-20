@@ -1,0 +1,25 @@
+.sidenav-container {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.mat-sidenav-content {
+  height: 100%;
+}
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0;
+  z-index: 1000;
+}
+

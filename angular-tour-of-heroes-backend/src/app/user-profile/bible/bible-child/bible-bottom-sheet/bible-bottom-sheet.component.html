@@ -1,7 +1,7 @@
 <mat-toolbar>
     <span>Make Some  Changes to your Bible</span>
     <span class="fill-remaining-space"></span>
-    <button class="btn-dialog-close" mat-stoked-button (click)="onClose()" tabIndex="-1"><mat-icon>x</mat-icon></button>
+    <button class="btn-dialog-close" mat-stoked-button (click)="onClose()" tabIndex="-1"><mat-icon>close</mat-icon></button>
   </mat-toolbar>
 
  <div *ngIf='toggle'>
@@ -20,6 +20,6 @@
     <button mat-mini-fab [style.background]="profileColors.color8"(click)="updateColor(profileColors.color8)"></button>
     <button mat-mini-fab [style.background]="profileColors.color9"(click)="updateColor(profileColors.color9)"></button>
     <button mat-mini-fab [style.background]="profileColors.color10"(click)="updateColor(profileColors.color10)"></button>
-    <button  #ignoredButton class="btn btn-primary" (click)="toggle=!toggle;">Toggle</button>
+    <button  #ignoredButton class="btn btn-primary" (click)="toggle=!toggle;">Color</button>
   </div>
   

@@ -1,11 +1,11 @@
-import { AfterViewChecked, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { AfterViewChecked, Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { NotificationService } from '../../shared/notification.service';
 import { Router } from "@angular/router";
 import { ThrowStmt, VariableAst } from '@angular/compiler';
 import { NgForm } from "@angular/forms";
 import { BibleinfoService } from '../../shared/bibleinfo.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeHtml} from '@angular/platform-browser';
-
+import { BibleNotesSidenavComponent } from './bible-notes-sidenav/bible-notes-sidenav.component';
 @Component({
   selector: 'app-bible',
   templateUrl: './bible.component.html',
@@ -14,14 +14,15 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeHtml} from '@angular/platfo
 })
 
 
+
 export class BibleComponent implements OnInit {
   bibleInfo: SafeHtml;
   bibleHtmlData: any; 
   bibleTranslations: any; 
   books: any;
   chapters: any;
+  @ViewChild(BibleNotesSidenavComponent) noteSideNav: BibleNotesSidenavComponent;
   
- 
   constructor(public BibleinfoService: BibleinfoService, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
@@ -29,7 +30,10 @@ export class BibleComponent implements OnInit {
     //this.getbiblePassage();
     //this.bibleInfo = this.sanitizer.bypassSecurityTrustHtml('<button type="button" id="submitButton"  class="newAwesomeClass (click)="showmessage()">Button</button>');
     }
-
+  
+    longText = `The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog
+      from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
+     originally bred for hunting.`;
 
   bibles = [
    {book_id: 1 , books: 'Genesis'},
@@ -90,7 +94,7 @@ loadChapters(){
 }
 
 addClickEvent() {
-
+ this.noteSideNav.drawerToggle();
 }
 
 

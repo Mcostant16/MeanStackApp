@@ -6,23 +6,13 @@
 <!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
 <!-- * * * * * * * to get started with your project! * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<div class="tbarcontainer">
- <mat-toolbar>
-	<span class="fill-remaining-space"></span>
-	<span>Awesome Webpage</span>
-	<span class="fill-remaining-space"></span>
- </mat-toolbar>
- </div>
 
-<h1>{{title}}</h1>
-<nav>
-   <a routerLink="/dashboard">Dashboard</a>
-   <a routerLink="/heroes">Heroes</a>
-   <a routerLink="/signup">Sign Up</a>
-   <a routerLink="/bible">Bible</a>
-</nav>
-<router-outlet></router-outlet>
+<app-main-nav></app-main-nav>
+
 <app-messages></app-messages>
+
+
+
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->

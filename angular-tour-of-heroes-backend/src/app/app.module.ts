@@ -27,16 +27,26 @@ import { AdminComponent } from './admin/admin.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { MaterialModule } from "./material/material.module";
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
 import { MatBottomSheetModule, MatBottomSheet, MatBottomSheetConfig, MatBottomSheetRef} from '@angular/material/bottom-sheet';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatMenuModule} from '@angular/material/menu';
 import { ConfirmWindowComponent } from './confirm-window/confirm-window.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
 import { BibleComponent } from './user-profile/bible/bible.component';
 import { BibleChildComponent } from './user-profile/bible/bible-child/bible-child.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { BibleBottomSheetComponent } from './user-profile/bible/bible-child/bible-bottom-sheet/bible-bottom-sheet.component';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { ColorPickerComponentComponent } from './user-profile/bible/bible-child/bible-bottom-sheet/color-picker-component/color-picker-component.component';
+import { BibleNotesSidenavComponent } from './user-profile/bible/bible-notes-sidenav/bible-notes-sidenav.component';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -57,6 +67,8 @@ import { ColorPickerComponentComponent } from './user-profile/bible/bible-child/
     BibleChildComponent,
     BibleBottomSheetComponent,
     ColorPickerComponentComponent,
+    BibleNotesSidenavComponent,
+    MainNavComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,6 +82,14 @@ import { ColorPickerComponentComponent } from './user-profile/bible/bible-child/
     MatDialogModule,
     ColorPickerModule,
     MatBottomSheetModule,
+    MatSidenavModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatMenuModule,
+    LayoutModule,
+    MatButtonModule,
+    MatListModule,
  ],
 	// The HttpClientInMemoryWebApiModule module intercepts HTTP requests
    // and returns simulated server responses.
