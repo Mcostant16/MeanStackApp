@@ -20,9 +20,9 @@ export class BibleChildComponent implements OnChanges, OnInit  {
   //Component
   @Input() bibleInfoChild;
   btnElement: any;
-  lifecycleTicks: number = 0;
+ // lifecycleTicks: number = 0;
   listenFunc: Function;
-  bibleInfoCheck;
+ // bibleInfoCheck;
   bibleStyle: string;
   color: any;
   verseArray: string [] = [];
@@ -57,7 +57,7 @@ ngOnChanges(changes: SimpleChanges){
   //used detech changes as alternative to setTimout I believe it works better and is more angular...
   this.cd.detectChanges();
   this.addEventListeners();
-  console.log(this.lifecycleTicks++);
+ // console.log(this.lifecycleTicks++);
  
 }
 
@@ -67,21 +67,31 @@ addEventListeners(){
     this.btnElement = this.elementRef.nativeElement.querySelector(".newAwesomeClass");
     this.listenFunc = this.renderer2.listen(this.btnElement , 'click', (event) => {
       // Do something with 'event'
-     // alert('hello listener');
-     // this.showmessage();
-      console.log(this.lifecycleTicks++);
-      console.log(event);
-      console.log(event.target.dataset.verseId);
+      // alert('hello listener');
+      // this.showmessage();
+      // console.log(this.lifecycleTicks++);
+      // console.log(event);
+      //console.log(event.target.dataset.verseId);
       this.bibleStyle = event.target.dataset.verseId;
       const index = this.verseArray.indexOf(this.bibleStyle);
       const el = this.elementRef.nativeElement.querySelectorAll(`[data-verse-id="${this.bibleStyle}"]`);
-      console.log(el);
+      //console.log(el);
       //console.log(index);
       //only add the style if it is not yet in array and is not undefined
       if (index > -1 || !this.bibleStyle) {
         this.verseArray.splice(index, 1); //remove element from array
+         //console.log((el[0] === this.removeUnderlineArr[0]));
+        //console.log(el);
+        //console.log(this.removeUnderlineArr[0]);
         el.forEach(element => {
           this.renderer2.removeClass(element, 'underlineClass');
+          //had to add the following code to remove double clicked underline from removeUnderlineArr
+          //if someone double clicks color does not get added
+          const index2 = this.removeUnderlineArr.indexOf(element); 
+          //console.log(index2);
+          if (index2 > -1) {
+            this.removeUnderlineArr.splice(index2,1);
+          }
         });   
        
       } 
@@ -89,11 +99,13 @@ addEventListeners(){
         el.forEach(element => {
           this.renderer2.addClass(element, 'underlineClass');
           this.removeUnderlineArr.push(element);
+          //console.log(this.removeUnderlineArr);
         });
        // this.verseInfo.bibleverse = this.bibleStyle;
-        this.verseArray.push(this.bibleStyle);
-        console.log(this.bottomSheetOpen);
+         this.verseArray.push(this.bibleStyle);
+        //console.log(this.bottomSheetOpen);
         console.log(this.verseArray);
+        //console.log(this.removeUnderlineArr);
           //check and see if the bottomsheet menu is open and subscribe to events on observables.
           if(!this.bottomSheetOpen){
       

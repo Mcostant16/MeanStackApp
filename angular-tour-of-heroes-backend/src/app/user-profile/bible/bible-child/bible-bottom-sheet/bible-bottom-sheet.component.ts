@@ -17,6 +17,7 @@ export class BibleBottomSheetComponent implements OnInit {
   //color:any;
   //colorPicked: string = "#c2dcf3";
   public toggle: boolean = false;
+  public toggleNoteForm: boolean = false;
   private word: string = 'color';
   private x: number = 1;
   private combination: string = this.word + this.x; 

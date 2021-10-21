@@ -5,7 +5,6 @@ import { ThrowStmt, VariableAst } from '@angular/compiler';
 import { NgForm } from "@angular/forms";
 import { BibleinfoService } from '../../shared/bibleinfo.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeHtml} from '@angular/platform-browser';
-import { BibleNotesSidenavComponent } from './bible-notes-sidenav/bible-notes-sidenav.component';
 @Component({
   selector: 'app-bible',
   templateUrl: './bible.component.html',
@@ -13,15 +12,13 @@ import { BibleNotesSidenavComponent } from './bible-notes-sidenav/bible-notes-si
   //encapsulation: ViewEncapsulation.None
 })
 
-
-
 export class BibleComponent implements OnInit {
   bibleInfo: SafeHtml;
   bibleHtmlData: any; 
   bibleTranslations: any; 
   books: any;
   chapters: any;
-  @ViewChild(BibleNotesSidenavComponent) noteSideNav: BibleNotesSidenavComponent;
+
   
   constructor(public BibleinfoService: BibleinfoService, private sanitizer: DomSanitizer) {}
 
@@ -94,7 +91,7 @@ loadChapters(){
 }
 
 addClickEvent() {
- this.noteSideNav.drawerToggle();
+
 }
 
 

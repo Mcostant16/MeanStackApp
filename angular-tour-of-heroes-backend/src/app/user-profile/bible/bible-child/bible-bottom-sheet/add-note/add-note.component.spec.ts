@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BibleNotesSidenavComponent } from './bible-notes-sidenav.component';
+import { AddNoteComponent } from './add-note.component';
 
-describe('BibleNotesSidenavComponent', () => {
-  let component: BibleNotesSidenavComponent;
-  let fixture: ComponentFixture<BibleNotesSidenavComponent>;
+describe('AddNoteComponent', () => {
+  let component: AddNoteComponent;
+  let fixture: ComponentFixture<AddNoteComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BibleNotesSidenavComponent ]
+      declarations: [ AddNoteComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BibleNotesSidenavComponent);
+    fixture = TestBed.createComponent(AddNoteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

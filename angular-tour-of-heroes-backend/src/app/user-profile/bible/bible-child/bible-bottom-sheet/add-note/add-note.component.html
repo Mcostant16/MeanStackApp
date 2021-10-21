@@ -1,0 +1,39 @@
+<div class="container">
+    <form [formGroup]="bibleIS.noteForm">
+        <mat-grid-list class="sameRow" cols="2">
+      
+     <mat-form-field  appearance="fill">
+            <mat-label>Title</mat-label>
+    <input formControlName="_title" matInput placeholder="Ex. Encouraging Passage..." value="Sushi">
+           <mat-error >This field is mandatory</mat-error> 
+         </mat-form-field>
+    
+         <mat-form-field >
+            <mat-label>Bible Verses</mat-label>
+    <input formControlName="_verses" matInput readonly="true" placeholder="Ex. John 1:1...">
+           <mat-error >This field is mandatory</mat-error> 
+         </mat-form-field>
+      
+        </mat-grid-list>
+      
+        
+        <div class="row">
+        <div class="date-label">{{dateToday | date: "mediumDate"}}</div>
+         <mat-form-field  appearance="fill">
+            <mat-label>Make Note</mat-label>
+                 <textarea formControlName="_notes" matInput placeholder="Ex. This passage resonates with me because..."
+                    cdkTextareaAutosize
+                    cdkAutosizeMinRows="7"
+                    cdkAutosizeMaxRows="10"></textarea>
+           <mat-error >This field is mandatory</mat-error> 
+         </mat-form-field>
+         </div>
+         <section>
+           <div class="row">
+              <button mat-raised-button >Cancel</button>
+              <button type="submit"  mat-raised-button color="primary" >Add Note</button> 
+            </div>
+          </section>
+   
+      </form>
+    </div>

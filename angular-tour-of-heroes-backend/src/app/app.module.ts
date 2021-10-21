@@ -42,11 +42,11 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { BibleBottomSheetComponent } from './user-profile/bible/bible-child/bible-bottom-sheet/bible-bottom-sheet.component';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { ColorPickerComponentComponent } from './user-profile/bible/bible-child/bible-bottom-sheet/color-picker-component/color-picker-component.component';
-import { BibleNotesSidenavComponent } from './user-profile/bible/bible-notes-sidenav/bible-notes-sidenav.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
+import { AddNoteComponent } from './user-profile/bible/bible-child/bible-bottom-sheet/add-note/add-note.component';
 
 @NgModule({
   declarations: [
@@ -67,8 +67,8 @@ import { MatListModule } from '@angular/material/list';
     BibleChildComponent,
     BibleBottomSheetComponent,
     ColorPickerComponentComponent,
-    BibleNotesSidenavComponent,
     MainNavComponent,
+    AddNoteComponent,
   ],
   imports: [
     BrowserModule,

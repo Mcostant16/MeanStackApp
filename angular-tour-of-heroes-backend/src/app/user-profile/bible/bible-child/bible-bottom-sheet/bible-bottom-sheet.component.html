@@ -6,20 +6,34 @@
 
  <div *ngIf='toggle'>
   <app-color-picker-component (exportColorEvent)="updateHighLightColors($event)" (toggleColorPickerEvent)="changeToggle($event)"></app-color-picker-component>
+ </div>
+ <div *ngIf='toggleNoteForm'>
+    <app-add-note></app-add-note>
+ </div>
+
+
+<div *ngIf='(!toggleNoteForm && !toggle)'>
+    <div #buttonRow1 class="buttonRow">
+        <button mat-raised-button (click)="toggleNoteForm=!toggleNoteForm">Add Note</button>
+        <button mat-raised-button color="primary">Primary</button>
+        <button mat-raised-button color="accent">Accent</button>
+    </div> 
+    <div #buttonRow2 class="buttonRow">
+        <button mat-mini-fab [style.background]="profileColors.color1"(click)="updateColor(profileColors.color1)"></button>
+        <button mat-mini-fab [style.background]="profileColors.color2"(click)="updateColor(profileColors.color2)"></button>
+        <button mat-mini-fab [style.background]="profileColors.color3"(click)="updateColor(profileColors.color3)"></button>
+        <button mat-mini-fab [style.background]="profileColors.color4"(click)="updateColor(profileColors.color4)"></button>
+        <button mat-mini-fab [style.background]="profileColors.color5"(click)="updateColor(profileColors.color5)"></button>
+        <button mat-mini-fab [style.background]="profileColors.color6"(click)="updateColor(profileColors.color6)"></button>
+        <button mat-mini-fab [style.background]="profileColors.color7"(click)="updateColor(profileColors.color7)"></button>
+        <button mat-mini-fab [style.background]="profileColors.color8"(click)="updateColor(profileColors.color8)"></button>
+        <button mat-mini-fab [style.background]="profileColors.color9"(click)="updateColor(profileColors.color9)"></button>
+        <button mat-mini-fab [style.background]="profileColors.color10"(click)="updateColor(profileColors.color10)"></button>
+        <button  #ignoredButton class="btn btn-primary" (click)="toggle=!toggle;">Color</button>
+    </div>  
 </div>
 
 
-<div *ngIf='!toggle'class="example-button-row">
-    <button mat-mini-fab [style.background]="profileColors.color1"(click)="updateColor(profileColors.color1)"></button>
-    <button mat-mini-fab [style.background]="profileColors.color2"(click)="updateColor(profileColors.color2)"></button>
-    <button mat-mini-fab [style.background]="profileColors.color3"(click)="updateColor(profileColors.color3)"></button>
-    <button mat-mini-fab [style.background]="profileColors.color4"(click)="updateColor(profileColors.color4)"></button>
-    <button mat-mini-fab [style.background]="profileColors.color5"(click)="updateColor(profileColors.color5)"></button>
-    <button mat-mini-fab [style.background]="profileColors.color6"(click)="updateColor(profileColors.color6)"></button>
-    <button mat-mini-fab [style.background]="profileColors.color7"(click)="updateColor(profileColors.color7)"></button>
-    <button mat-mini-fab [style.background]="profileColors.color8"(click)="updateColor(profileColors.color8)"></button>
-    <button mat-mini-fab [style.background]="profileColors.color9"(click)="updateColor(profileColors.color9)"></button>
-    <button mat-mini-fab [style.background]="profileColors.color10"(click)="updateColor(profileColors.color10)"></button>
-    <button  #ignoredButton class="btn btn-primary" (click)="toggle=!toggle;">Color</button>
-  </div>
+   
+
   

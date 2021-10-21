@@ -67,6 +67,13 @@ constructor(public http: HttpClient) { }
     verse_id: new FormControl('')
   });
 
+  noteForm: FormGroup = new FormGroup({
+    _title: new FormControl(null),
+    _verses: new FormControl({value: 'John1:1, John1:2', disabled: true}, Validators.required),
+    _date: new FormControl(''),
+    _notes: new FormControl(''),
+  });
+
   initializeFormGroup() {
     this.form.setValue({
       _id: null,
