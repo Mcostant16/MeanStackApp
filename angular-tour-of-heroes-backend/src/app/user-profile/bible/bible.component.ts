@@ -43,10 +43,10 @@ export class BibleComponent implements OnInit {
 
 getbiblePassage(){
   //console.log(this.BibleinfoService.form.value); //get all values of form
-  let bible_id = this.BibleinfoService.form.controls.bible_id.value;
-  let chapter_id = this.BibleinfoService.form.controls.chapter_id.value;
+  //let bible_id = this.BibleinfoService.form.controls.bible_id.value;
+  //let chapter_id = this.BibleinfoService.form.controls.chapter_id.value.id;
   //this.BibleinfoService.getbiblePassage('06125adad2d5898a-01','EXO.1')
-  this.BibleinfoService.getbiblePassage(bible_id, chapter_id)
+  this.BibleinfoService.getbiblePassage(/*bible_id, chapter_id*/)
   .subscribe(res=> {
   this.bibleHtmlData = res;
     //console.log(res);
@@ -62,7 +62,7 @@ getBibles(){
   this.BibleinfoService.getBibles()
   .subscribe(res=> {
     this.bibleTranslations = res;
-    console.log(res);
+  //  console.log(res);
   },
   err=> {}
   )
@@ -72,7 +72,7 @@ loadBooks(){
   this.BibleinfoService.getBooks()
   .subscribe(res=> {
     this.books = res;
-    console.log(res);
+   // console.log(res);
  },
   err=> {}
   )
@@ -84,7 +84,6 @@ loadChapters(){
   this.BibleinfoService.getChapters(bible_id,books_id)
   .subscribe(res=> {
     this.chapters = res;
-    console.log(res);
  },
   err=> {}
   )

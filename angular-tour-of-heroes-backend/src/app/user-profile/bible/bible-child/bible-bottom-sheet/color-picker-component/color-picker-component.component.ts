@@ -35,8 +35,9 @@ export class ColorPickerComponentComponent implements OnInit {
     //third line sets the color.
     //fourthline uses the serice to call the grandparent component bible-child to apply style to verses from color picker.
     this.exportColorEvent.emit(this.chosenColor);
+    this.bibleIS.updateHighLightColors(this.chosenColor);
     this.toggleColorPickerEvent.emit(false);
-    this.bibleIS.setColor(this.chosenColor);
+    //this.bibleIS.setColor(this.chosenColor);
     this.bibleIS.sendClickEvent();
   }
 

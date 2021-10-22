@@ -25,10 +25,10 @@ export class BibleChildComponent implements OnChanges, OnInit  {
  // bibleInfoCheck;
   bibleStyle: string;
   color: any;
-  verseArray: string [] = [];
-  uniqueVerseArray: string [] = [];
-  verseInfo: { bibleverse: "",
-               background: ""}; 
+  //verseArray: string [] = [];
+  //uniqueVerseArray: string [] = [];
+  //verseInfo: { bibleverse: "",
+  //             background: ""}; 
   bottomSheetOpen: boolean = false; 
   dialogConfig: MatBottomSheetConfig;
   removeUnderlineArr: string [] = [];
@@ -73,13 +73,13 @@ addEventListeners(){
       // console.log(event);
       //console.log(event.target.dataset.verseId);
       this.bibleStyle = event.target.dataset.verseId;
-      const index = this.verseArray.indexOf(this.bibleStyle);
+      const index = this.bibleIS.verseArray.indexOf(this.bibleStyle);
       const el = this.elementRef.nativeElement.querySelectorAll(`[data-verse-id="${this.bibleStyle}"]`);
       //console.log(el);
       //console.log(index);
       //only add the style if it is not yet in array and is not undefined
       if (index > -1 || !this.bibleStyle) {
-        this.verseArray.splice(index, 1); //remove element from array
+        this.bibleIS.verseArray.splice(index, 1); //remove element from array
          //console.log((el[0] === this.removeUnderlineArr[0]));
         //console.log(el);
         //console.log(this.removeUnderlineArr[0]);
@@ -102,9 +102,9 @@ addEventListeners(){
           //console.log(this.removeUnderlineArr);
         });
        // this.verseInfo.bibleverse = this.bibleStyle;
-         this.verseArray.push(this.bibleStyle);
+         this.bibleIS.verseArray.push(this.bibleStyle);
         //console.log(this.bottomSheetOpen);
-        console.log(this.verseArray);
+        console.log(this.bibleIS.verseArray);
         //console.log(this.removeUnderlineArr);
           //check and see if the bottomsheet menu is open and subscribe to events on observables.
           if(!this.bottomSheetOpen){
@@ -119,7 +119,7 @@ addEventListeners(){
             this.bottomSheetRef.afterDismissed().subscribe( ()=> {
                 //this.booleanValue = true;
                 //this.cd.detectChanges();
-                this.verseArray = [];
+                this.bibleIS.verseArray = [];
                 this.removeUnderlineArr.forEach(element => {
                   this.renderer2.removeClass(element, 'underlineClass');
                 });  

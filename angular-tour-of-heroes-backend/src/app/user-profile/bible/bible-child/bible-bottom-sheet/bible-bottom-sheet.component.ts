@@ -19,7 +19,7 @@ export class BibleBottomSheetComponent implements OnInit {
   public toggle: boolean = false;
   public toggleNoteForm: boolean = false;
   private word: string = 'color';
-  private x: number = 1;
+  private x: number =  1;
   private combination: string = this.word + this.x; 
   //public highLightArray: string [] = ["YELLOW", "GRAPEFRUIT","PURPLE","TEAL", "SEAGREEN", "CHARTREUSE","ORANGE","SALMON","INDIGO"];
   profileColors: Colors;
@@ -41,16 +41,22 @@ export class BibleBottomSheetComponent implements OnInit {
       console.log(this.profileColors);
   }
 
+  /*removed this code here and added it in sevice made more sense 
+  and was more straightforward instead off emitting events. */
+/*
  updateHighLightColors(color: string){
    //console.log(color);
+   var value = 1; 
    this.profileColors[this.word + this.x] = color;
   //this.profileColors[4] = color;
   //console.log(this.profileColors[this.word +this.x]);
   //if last color has been update reset cplor
+  console.log(value);
+  console.log('it worked!');
+  value= value++;
   this.x === 10 ? this.x=1 : this.x++ ;
-
- }
-
+}
+*/
  updateColor(highLight: string){
    this.bibleIS.setColor(highLight);
    this.bibleIS.sendClickEvent();

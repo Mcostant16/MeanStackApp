@@ -110,10 +110,10 @@
            </mat-form-field>
       
            <mat-form-field class="bible-select" appearance="outline">
-              <mat-select formControlName="chapter_id" matInput placeholder="Chapters">
+              <mat-select (selectionChange)="getbiblePassage()"  formControlName="chapter_id" matInput placeholder="Chapters">
                 <mat-option>None</mat-option>
-                  <ng-container *ngFor="let chapter of chapters">
-                <mat-option  value="{{chapter.id}}">{{chapter.reference}}</mat-option>
+                  <ng-container *ngFor="let chapter of chapters;">
+                <mat-option  value="{{chapter | json}}">{{chapter.reference}}</mat-option>
                   </ng-container>
             </mat-select>
              <mat-error >This field is mandatory</mat-error> 

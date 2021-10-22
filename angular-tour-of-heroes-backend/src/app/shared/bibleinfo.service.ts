@@ -9,6 +9,7 @@ import { Observable, of, BehaviorSubject, Subject } from 'rxjs';
 import { FormGroup, FormControl, Validators  } from '@angular/forms';
 import { BibleInfo } from './bible-info.model';
 import { Colors } from './color-profile.model';
+import { Note } from './user-note.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,14 +19,27 @@ export class BibleinfoService {
 
 
   selectedBibleInfo: BibleInfo = {
-      _id: '',
-      profile_id: '',
-      bible_id: '',
-      books_id: '',
-      chapter_id: '',
-      passage_id: '',
-      verse_id: ''
+    _id: '',
+    profile_id: '',
+    bible_id: '',
+    books_id: '',
+    chapter_id: '',
+    passage_id: '',
+    verse_id: '' 
   };
+
+  userNote: Note = {
+    note_id: '',
+    profile_id: '',
+    bible_id: '',
+    book_id: '',
+    chapter_id: '',
+    reference: '',
+    verses_id: [],
+    date: '',
+    title: '',
+    note: '',
+  }
 
   
   userColors: Colors = {
@@ -45,7 +59,13 @@ export class BibleinfoService {
 public updateColor: string;
 private colorSource = new BehaviorSubject<Colors>(this.userColors);
 currentColor = this.colorSource.asObservable();
+private noteSource = new BehaviorSubject<Note>(this.userNote);
+addNote$ = this.noteSource.asObservable();
 private subject = new Subject<any>();
+public noteChapters; 
+public verseArray: string [] = [];
+private word: string = 'color';
+  private x: number =  1;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -62,7 +82,7 @@ constructor(public http: HttpClient) { }
     profile_id: new FormControl('' ,Validators.required),
     bible_id: new FormControl(''),
     books_id: new FormControl(''),
-    chapter_id: new FormControl(''),
+    chapter_id: new FormControl([]),
     passage_id: new FormControl(''),
     verse_id: new FormControl('')
   });
@@ -80,7 +100,7 @@ constructor(public http: HttpClient) { }
       profile_id: '',
       bible_id: '',
       books_id: null,
-      chapter_id: null,
+      chapter_id: [],
       passage_id: '',
       verse_id: '',
     });
@@ -115,12 +135,16 @@ private handleError<T>(operation = 'operation', result?: T) {
   }; 
 }
 
-getbiblePassage(bibleId,chapterId) {
-  this.bibleId = bibleId; ////set bibleId to save highlights
-  this.chapterId = chapterId; //set chapterId to save highlights
+//don't need the variables decided to get Json of form control
+getbiblePassage(/*bibleId,chapterId*/) {
+  //get the form control and turn json back in an object
+  this.noteChapters = JSON.parse(this.form.get('chapter_id').value);
+  //this.bibleId = bibleId; ////set bibleId to save highlights
+ // this.chapterId = chapterId; //set chapterId to save highlights
   let params = new HttpParams();
-  params = params.append('bible_ID', bibleId);
-  params = params.append('chapter_ID', chapterId);
+  params = params.append('bible_ID', this.noteChapters.bibleId);
+  params = params.append('chapter_ID', this.noteChapters.id);
+  console.log(this.noteChapters.reference);
   return this.http.get(environment.apiBaseUrl + '/biblePassage',{ params: params});
 }
 
@@ -138,7 +162,7 @@ getChapters(bibleId, bookId) {
   params = params.append('bible_ID', bibleId);
   params = params.append('books_ID', bookId);
   return this.http.get(environment.apiBaseUrl + '/chapters',{ params: params});
-}
+ }
 
 //going to use this to save info about user bible info
 saveAccountInfo(bibleId,chapterId) {
@@ -161,6 +185,27 @@ sendClickEvent(){
 
 getClickEvent(): Observable<any>{
   return this.subject.asObservable();
+}
+
+setNote(data){
+  //update note model to send parameterms
+  this.userNote.bible_id = this.noteChapters.bibleId;
+  this.userNote.book_id = this.noteChapters.bookId;
+  this.userNote.chapter_id = this.noteChapters.id;
+  this.userNote.reference = this.noteChapters.reference;
+  this.noteSource.next(data);
+}
+
+//update users color profile
+updateHighLightColors(color: string){
+  //console.log(color);
+  this.userColors[this.word + this.x] = color;
+  this.setColor(color);
+ //this.profileColors[4] = color;
+ //console.log(this.profileColors[this.word +this.x]);
+ //if last color has been update reset cplor
+ this.x === 10 ? this.x=1 : this.x++ ;
+
 }
 
 }

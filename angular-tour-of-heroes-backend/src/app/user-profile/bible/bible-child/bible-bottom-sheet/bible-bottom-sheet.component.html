@@ -4,8 +4,9 @@
     <button class="btn-dialog-close" mat-stoked-button (click)="onClose()" tabIndex="-1"><mat-icon>close</mat-icon></button>
   </mat-toolbar>
 
+  <!-- Took This Out -- (exportColorEvent)="updateHighLightColors($event)" --> 
  <div *ngIf='toggle'>
-  <app-color-picker-component (exportColorEvent)="updateHighLightColors($event)" (toggleColorPickerEvent)="changeToggle($event)"></app-color-picker-component>
+  <app-color-picker-component (toggleColorPickerEvent)="changeToggle($event)"></app-color-picker-component>
  </div>
  <div *ngIf='toggleNoteForm'>
     <app-add-note></app-add-note>
