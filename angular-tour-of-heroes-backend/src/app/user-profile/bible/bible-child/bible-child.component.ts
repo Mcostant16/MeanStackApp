@@ -80,7 +80,14 @@ addEventListeners(){
       //only add the style if it is not yet in array and is not undefined
       if (index > -1 || !this.bibleStyle) {
         this.bibleIS.verseArray.splice(index, 1); //remove element from array
-         //console.log((el[0] === this.removeUnderlineArr[0]));
+        //if verse is unselected remove from verse array of form
+        this.bibleIS.updateVerseArray();
+        /* Used Function above to replace
+        this.bibleIS.noteForm.patchValue({
+          _verses: this.bibleIS.verseArray
+        }); 
+        */
+        //console.log((el[0] === this.removeUnderlineArr[0]));
         //console.log(el);
         //console.log(this.removeUnderlineArr[0]);
         el.forEach(element => {
@@ -103,6 +110,13 @@ addEventListeners(){
         });
        // this.verseInfo.bibleverse = this.bibleStyle;
          this.bibleIS.verseArray.push(this.bibleStyle);
+         this.bibleIS.updateVerseArray();
+         //added this code to update verse array in form
+         /*
+         this.bibleIS.noteForm.patchValue({
+           _verses: this.bibleIS.verseArray
+         });
+         */
         //console.log(this.bottomSheetOpen);
         console.log(this.bibleIS.verseArray);
         //console.log(this.removeUnderlineArr);

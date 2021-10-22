@@ -63,6 +63,7 @@ private noteSource = new BehaviorSubject<Note>(this.userNote);
 addNote$ = this.noteSource.asObservable();
 private subject = new Subject<any>();
 public noteChapters; 
+public bookChapter: string;
 public verseArray: string [] = [];
 private word: string = 'color';
   private x: number =  1;
@@ -89,7 +90,7 @@ constructor(public http: HttpClient) { }
 
   noteForm: FormGroup = new FormGroup({
     _title: new FormControl(null),
-    _verses: new FormControl({value: 'John1:1, John1:2', disabled: true}, Validators.required),
+    _verses: new FormControl({value: this.verseArray, disabled: true}, Validators.required),
     _date: new FormControl(''),
     _notes: new FormControl(''),
   });
@@ -141,6 +142,7 @@ getbiblePassage(/*bibleId,chapterId*/) {
   this.noteChapters = JSON.parse(this.form.get('chapter_id').value);
   //this.bibleId = bibleId; ////set bibleId to save highlights
  // this.chapterId = chapterId; //set chapterId to save highlights
+  this.updateNoteForm();
   let params = new HttpParams();
   params = params.append('bible_ID', this.noteChapters.bibleId);
   params = params.append('chapter_ID', this.noteChapters.id);
@@ -188,12 +190,26 @@ getClickEvent(): Observable<any>{
 }
 
 setNote(data){
+
+  this.noteSource.next(data);
+}
+
+updateNoteForm() {
   //update note model to send parameterms
   this.userNote.bible_id = this.noteChapters.bibleId;
   this.userNote.book_id = this.noteChapters.bookId;
   this.userNote.chapter_id = this.noteChapters.id;
   this.userNote.reference = this.noteChapters.reference;
-  this.noteSource.next(data);
+}
+
+updateVerseArray() {
+  //const slug = this.verseArray[0].split('.').pop();
+  const arr = this.verseArray.map(element => parseInt(element.split('.').pop()));
+  //console.log(slug);
+  
+  this.noteForm.patchValue({
+    _verses: this.userNote.reference + ': V. ' + arr.sort(function(a, b) {return a - b;})
+  });
 }
 
 //update users color profile
