@@ -202,15 +202,52 @@ updateNoteForm() {
   this.userNote.reference = this.noteChapters.reference;
 }
 
+//this algorithim works 
+
+
+
 updateVerseArray() {
   //const slug = this.verseArray[0].split('.').pop();
   const arr = this.verseArray.map(element => parseInt(element.split('.').pop()));
-  //console.log(slug);
-  
+  let sortedArray = arr.sort(function(a, b) {return a - b;});
+  //console.log(sortedArray + ' sorted array');
+  var consecArr = [];
+  //let consecutiveNums = [];
+  //const nonConsecArr = [];
+  const myArray = [];
+
+//algorithim to add consecutive verses together to be Bible Verse Notes.
+  for (let i=0, j=1; i < sortedArray.length; i++, j++ ) {
+    // console.log(sortedArray[i] +' beginning');
+      if ((sortedArray[j] - sortedArray[i]) == 1) {  
+        // console.log('if statemenent true'+ sortedArray[j] + sortedArray[i]);
+           consecArr.push(sortedArray[i], sortedArray[j]);
+      }
+      else {
+        // console.log('else statement should not fire');
+        // console.log(consecArr);
+           if (consecArr.length === 0) {
+              myArray.push(sortedArray[i]);
+           }
+           else{
+        // console.log(consecArr);
+             // consecutiveNums.push(Math.min(...consecArr), Math.max(...consecArr)); 
+            //  myArray.push(consecutiveNums);
+              myArray.push(Math.min(...consecArr) + '-' + Math.max(...consecArr));
+           }
+           // nonConsecArr.push(sortedArray[i],sortedArray[j]);
+           // consecutiveNums = [];
+           consecArr = [];
+        }
+    }
+  // console.log(consecArr);
+  // console.log(myArray);
+  // console.log(nonConsecArr);
   this.noteForm.patchValue({
-    _verses: this.userNote.reference + ': V. ' + arr.sort(function(a, b) {return a - b;})
+    _verses: this.userNote.reference + ': V. ' + myArray
   });
 }
+
 
 //update users color profile
 updateHighLightColors(color: string){

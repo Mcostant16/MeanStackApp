@@ -23,7 +23,7 @@ export class BibleChildComponent implements OnChanges, OnInit  {
  // lifecycleTicks: number = 0;
   listenFunc: Function;
  // bibleInfoCheck;
-  bibleStyle: string;
+  //bibleStyle: string;
   color: any;
   //verseArray: string [] = [];
   //uniqueVerseArray: string [] = [];
@@ -67,37 +67,23 @@ addEventListeners(){
     this.btnElement = this.elementRef.nativeElement.querySelector(".newAwesomeClass");
     this.listenFunc = this.renderer2.listen(this.btnElement , 'click', (event) => {
       // Do something with 'event'
-      // alert('hello listener');
-      // this.showmessage();
-      // console.log(this.lifecycleTicks++);
-      // console.log(event);
-      //console.log(event.target.dataset.verseId);
-      this.bibleStyle = event.target.dataset.verseId;
-      const index = this.bibleIS.verseArray.indexOf(this.bibleStyle);
-      const el = this.elementRef.nativeElement.querySelectorAll(`[data-verse-id="${this.bibleStyle}"]`);
+      let bibleStyle = event.target.dataset.verseId;
+      const index = this.bibleIS.verseArray.indexOf(bibleStyle);
+      const el = this.elementRef.nativeElement.querySelectorAll(`[data-verse-id="${bibleStyle}"]`);
       //console.log(el);
       //console.log(index);
       //only add the style if it is not yet in array and is not undefined
-      if (index > -1 || !this.bibleStyle) {
-        this.bibleIS.verseArray.splice(index, 1); //remove element from array
-        //if verse is unselected remove from verse array of form
-        this.bibleIS.updateVerseArray();
-        /* Used Function above to replace
-        this.bibleIS.noteForm.patchValue({
-          _verses: this.bibleIS.verseArray
-        }); 
-        */
-        //console.log((el[0] === this.removeUnderlineArr[0]));
-        //console.log(el);
-        //console.log(this.removeUnderlineArr[0]);
+      if (index > -1 || !bibleStyle) {
         el.forEach(element => {
           this.renderer2.removeClass(element, 'underlineClass');
           //had to add the following code to remove double clicked underline from removeUnderlineArr
           //if someone double clicks color does not get added
           const index2 = this.removeUnderlineArr.indexOf(element); 
-          //console.log(index2);
+          //if element is in removeunderlinearr rremove it from arrays and run function to update notes in service.
           if (index2 > -1) {
             this.removeUnderlineArr.splice(index2,1);
+            this.bibleIS.verseArray.splice(index, 1);
+            this.bibleIS.updateVerseArray();
           }
         });   
        
@@ -106,53 +92,36 @@ addEventListeners(){
         el.forEach(element => {
           this.renderer2.addClass(element, 'underlineClass');
           this.removeUnderlineArr.push(element);
-          //console.log(this.removeUnderlineArr);
+         
         });
-       // this.verseInfo.bibleverse = this.bibleStyle;
-         this.bibleIS.verseArray.push(this.bibleStyle);
+         this.bibleIS.verseArray.push(bibleStyle);
          this.bibleIS.updateVerseArray();
-         //added this code to update verse array in form
-         /*
-         this.bibleIS.noteForm.patchValue({
-           _verses: this.bibleIS.verseArray
-         });
-         */
-        //console.log(this.bottomSheetOpen);
-        console.log(this.bibleIS.verseArray);
-        //console.log(this.removeUnderlineArr);
+          //console.log(this.bibleIS.verseArray);
           //check and see if the bottomsheet menu is open and subscribe to events on observables.
           if(!this.bottomSheetOpen){
-      
             this.bottomSheetRef = this.bottomSheet.open(BibleBottomSheetComponent, this.dialogConfig);
-            
             this.bottomSheetRef.afterOpened().subscribe( ()=> {
                 this.bottomSheetOpen = true;
                 this.cd.detectChanges();
             });
             
-            this.bottomSheetRef.afterDismissed().subscribe( ()=> {
-                //this.booleanValue = true;
+          this.bottomSheetRef.afterDismissed().subscribe( ()=> {
                 //this.cd.detectChanges();
-                this.bibleIS.verseArray = [];
-                this.removeUnderlineArr.forEach(element => {
-                  this.renderer2.removeClass(element, 'underlineClass');
-                });  
-                this.removeUnderlineArr = [];
-                this.bottomSheetOpen = false;
-                this.cd.detectChanges();
+            this.bibleIS.verseArray = [];
+            this.removeUnderlineArr.forEach(element => {
+                this.renderer2.removeClass(element, 'underlineClass');
+            });  
+              this.removeUnderlineArr = [];
+              this.bottomSheetOpen = false;
+              this.cd.detectChanges();
                 
-            });
-          }
-       
-      //bottomSheetRef.dismiss();   
-    }
-      
-      //this.uniqueVerseArray = [... new Set(this.verseArray)];
-      //console.log(this.uniqueVerseArray);
-     });
-    }
-    
+          });
+        } 
+     }
+    //this.uniqueVerseArray = [... new Set(this.verseArray)];
+    });
   }
+}
 
 updateColor(){
   //this function is triggered by the service that is subscribed to ngOnit 
