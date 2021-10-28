@@ -66,7 +66,7 @@ export class AdminComponent implements OnInit {
       //this.personList.splice(id, 1);
       //this.userRecord = this.userService.selectedUser;
       _.merge(this.userService.selectedUser,user);  //create a record to be injected into the form since some of the fields may  be messing in the database
-      console.log(this.userService.selectedUser);
+      //console.log(this.userService.selectedUser);
       this.userService.populateForm(this.userService.selectedUser);
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;

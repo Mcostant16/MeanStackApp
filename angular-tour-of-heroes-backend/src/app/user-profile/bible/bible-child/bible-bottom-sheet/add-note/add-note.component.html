@@ -1,5 +1,5 @@
 <div class="container">
-    <form [formGroup]="bibleIS.noteForm">
+    <form [formGroup]="bibleIS.noteForm" (ngSubmit)="onSubmit()">
         <mat-grid-list class="sameRow" cols="2">
       
      <mat-form-field  appearance="fill">
@@ -8,7 +8,7 @@
            <mat-error >This field is mandatory</mat-error> 
          </mat-form-field>
     
-         <mat-form-field >
+         <mat-form-field class="disabledLook" >
             <mat-label>Bible Verses</mat-label>
     <input formControlName="_verses" matInput readonly="true" placeholder="Ex. John 1:1...">
            <mat-error >This field is mandatory</mat-error> 
@@ -30,7 +30,7 @@
          </div>
          <section>
            <div class="row">
-              <button mat-raised-button >Cancel</button>
+              <button type="button" mat-raised-button (click)="changeToggleValue()" >Cancel</button>
               <button type="submit"  mat-raised-button color="primary" >Add Note</button> 
             </div>
           </section>

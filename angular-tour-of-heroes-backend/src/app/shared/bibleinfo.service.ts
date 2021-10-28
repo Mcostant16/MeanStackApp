@@ -6,7 +6,7 @@ import { NgForm } from "@angular/forms";
 import { environment} from '../../environments/environment';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of, BehaviorSubject, Subject } from 'rxjs';
-import { FormGroup, FormControl, Validators  } from '@angular/forms';
+import { FormGroup, FormControl, Validators,  } from '@angular/forms';
 import { BibleInfo } from './bible-info.model';
 import { Colors } from './color-profile.model';
 import { Note } from './user-note.model';
@@ -30,15 +30,15 @@ export class BibleinfoService {
 
   userNote: Note = {
     note_id: '',
-    profile_id: '',
-    bible_id: '',
-    book_id: '',
-    chapter_id: '',
+    _profile_id: '',
+    _bible_id: '',
+    _book_id: '',
+    _chapter_id: '',
     reference: '',
-    verses_id: [],
-    date: '',
-    title: '',
-    note: '',
+    _verses: [],
+    _date: '',
+    _title: '',
+    _notes: '',
   }
 
   
@@ -89,10 +89,15 @@ constructor(public http: HttpClient) { }
   });
 
   noteForm: FormGroup = new FormGroup({
+    _profile_id: new FormControl(null),
     _title: new FormControl(null),
-    _verses: new FormControl({value: this.verseArray, disabled: true}, Validators.required),
+   // _verses: new FormControl({value: null, disabled: true}, Validators.required),
+    _verses: new FormControl({value: '',}),
     _date: new FormControl(''),
     _notes: new FormControl(''),
+    _bible_id: new FormControl(''),
+    _books_id: new FormControl(''),
+    _chapter_id: new FormControl(''),
   });
 
   initializeFormGroup() {
@@ -196,10 +201,21 @@ setNote(data){
 
 updateNoteForm() {
   //update note model to send parameterms
-  this.userNote.bible_id = this.noteChapters.bibleId;
-  this.userNote.book_id = this.noteChapters.bookId;
-  this.userNote.chapter_id = this.noteChapters.id;
-  this.userNote.reference = this.noteChapters.reference;
+  
+ this.noteForm.setValue({
+    _profile_id: this.getUserPayLoad()._id,
+    _title: '',
+    _verses:'',
+    _date:  Date.now(),
+    _notes: '',
+    _bible_id: this.noteChapters.bibleId,
+    _books_id: this.noteChapters.bookId,
+    _chapter_id: this.noteChapters.id,
+  });
+  //this.userNote.bible_id = this.noteChapters.bibleId;
+  //this.userNote.book_id = this.noteChapters.bookId;
+  //this.userNote.chapter_id = this.noteChapters.id;
+ // this.userNote.reference = this.noteChapters.reference;
 }
 
 //this algorithim works 
@@ -233,7 +249,8 @@ updateVerseArray() {
     }
   //update noteForm verses with myArray to show shortened list of consecutive and individual verses.
   this.noteForm.patchValue({
-    _verses: this.userNote.reference + ': V. ' + myArray});
+    _verses: this.noteChapters.reference + ': V. ' + myArray});
+  console.log(this.noteForm);
 }
 
 
@@ -247,6 +264,28 @@ updateHighLightColors(color: string){
  //if last color has been update reset cplor
  this.x === 10 ? this.x=1 : this.x++ ;
 
+}
+
+getToken() {
+  return localStorage.getItem('token');
+}
+
+
+getUserPayLoad() {
+  var token = this.getToken();
+  if (token) {
+    var userPayLoad = atob(token.split('.')[1]);
+   return JSON.parse(userPayLoad);
+  }
+  else 
+    return null;
+}
+
+addBibleNote(): Observable<any>{
+  return this.http.post(environment.apiBaseUrl + '/addNote', this.noteForm.value, this.noAuthHeader).pipe(
+    tap(_ => console.log(`updated hero id=${this.noteForm.value._profile_id}`)),
+    catchError(this.handleError<any>('addBibleNote'))
+  );
 }
 
 }

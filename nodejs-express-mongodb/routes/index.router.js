@@ -6,6 +6,7 @@ const jwtHelper = require('../config/jwtHelper');
 
 router.post('/register', ctrlUser.register);
 router.post('/authenticate', ctrlUser.authenticate);
+router.post('/addNote', ctrlUser.addNote);
 router.get('/userProfile', jwtHelper.verifyJwtToken, ctrlUser.userProfile);
 router.get('/userProfileImages', jwtHelper.verifyJwtToken, ctrlUser.userProfileImages);
 router.get('/users', jwtHelper.verifyJwtToken, ctrlUser.users);

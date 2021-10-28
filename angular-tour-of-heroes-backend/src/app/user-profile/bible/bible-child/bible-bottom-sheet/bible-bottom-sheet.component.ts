@@ -41,6 +41,10 @@ export class BibleBottomSheetComponent implements OnInit {
       console.log(this.profileColors);
   }
 
+  changeToggleNoteForm(closeNoteForm: boolean){
+    this.toggleNoteForm = closeNoteForm;
+}
+
   /*removed this code here and added it in sevice made more sense 
   and was more straightforward instead off emitting events. */
 /*

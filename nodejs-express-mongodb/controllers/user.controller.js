@@ -45,6 +45,7 @@ const upload = multer({
 
 const User = mongoose.model('User');
 const profileImages = mongoose.model('profileImages');
+const userNote = mongoose.model('userNote');
 
 module.exports.register = (req,res,next) => {
     var user = new User();
@@ -294,9 +295,48 @@ module.exports.chapters = async (req, res, next) => {
         //There are no passages with this chapter_id and nothing returns.
          _.remove(response.data.data, {number: "intro" } );
         res.send(response.data.data);
-      } catch (error) {
+    }  catch (error) {
         console.error(error);
-      }
-     
-
+        }
 };
+
+module.exports.addNote = (req,res,next) => {
+    var note = new userNote();
+    note.profile_id = req.body._profile_id
+    note.bible_id = req.body._bible_id;
+    note.books_id = req.body._books_id;
+    note.chapter_id = req.body._chapter_id;
+    note.reference = req.body.reference;
+    note.verses = req.body._verses;
+    note.date = req.body._date;
+    note.title = req.body._title;
+    note.notes = req.body._notes;
+    note.save((err, doc) => {
+        if (!err)
+            res.send(doc);
+        else 
+        {
+          return next(err);
+        }   
+    });
+}
+
+//return all users and fields except password
+module.exports.notes = (req, res ) => {
+    userNote.find({ profile_id: req._id },'-password', (err, docs)  => {
+        if (!err) { res.send(docs); }
+        else { res.status(404).json({ status: false, message: 'User records not found.'}); }
+    });
+}
+
+module.exports.userProfileImages = (req, res, next) => {
+    profileImages.find({ profile_id: req._id } , '-__v -updatedAt -date',
+        (err, images) => {
+            if (!images)
+                return res.status(404).json({ status: false, message: 'User profile images not found.'});
+            else 
+                console.log(images);
+                return res.status(200).json({ status: true, images });
+        }
+    );
+}

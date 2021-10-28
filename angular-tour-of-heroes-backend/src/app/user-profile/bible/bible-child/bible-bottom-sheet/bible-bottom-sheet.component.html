@@ -9,7 +9,7 @@
   <app-color-picker-component (toggleColorPickerEvent)="changeToggle($event)"></app-color-picker-component>
  </div>
  <div *ngIf='toggleNoteForm'>
-    <app-add-note></app-add-note>
+    <app-add-note (toggleNoteFormEvent)="changeToggleNoteForm($event)"></app-add-note>
  </div>
 
 

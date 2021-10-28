@@ -75,7 +75,7 @@ export class UserProfileComponent implements OnInit {
     this.imagesService.onUpload(fd).subscribe(res => {
       console.log(res);
       this.ngOnInit();
-      this.notificationService.success("Image Uploaded!!")
+      this.notificationService.success("Image Uploaded!!");
     });
   }
 }
