@@ -32,8 +32,7 @@ export class BibleBottomSheetComponent implements OnInit {
 
 
   onClose() {
-
-    this.bottomSheetRef.dismiss();
+   this.bottomSheetRef.dismiss();
   }  
 
   changeToggle(closeColorPicker: boolean){
@@ -42,6 +41,8 @@ export class BibleBottomSheetComponent implements OnInit {
   }
 
   changeToggleNoteForm(closeNoteForm: boolean){
+     // this.bibleIS.noteForm.reset();
+     // this.bibleIS.updateNoteForm();
     this.toggleNoteForm = closeNoteForm;
 }
 
@@ -69,7 +70,6 @@ export class BibleBottomSheetComponent implements OnInit {
  ngOnDestroy() {
   //unsubscribe to subscription
   this.profileColorsSubscription$.unsubscribe();
-
-}
+ }
 
 }

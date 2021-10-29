@@ -1,6 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { BibleinfoService } from '../../../../../shared/bibleinfo.service';
 import { Event } from '@angular/router';
+import { NotificationService } from '../../../../../shared/notification.service';
 @Component({
   selector: 'app-add-note',
   templateUrl: './add-note.component.html',
@@ -9,20 +10,30 @@ import { Event } from '@angular/router';
 export class AddNoteComponent implements OnInit {
   dateToday: number = Date.now();
   @Output() toggleNoteFormEvent = new EventEmitter<boolean>();
-  constructor(public bibleIS: BibleinfoService) { }
+  constructor(public bibleIS: BibleinfoService, public notificationService: NotificationService) { }
 
   ngOnInit(): void {
   }
 
-  
+  //this is cancel button.
   changeToggleValue(){
     this.toggleNoteFormEvent.emit(false);
+   
   }
 
   onSubmit(){
-   this.bibleIS.addBibleNote().subscribe(); 
-   this.bibleIS.sendClickEvent();
-   this.bibleIS.updateNoteForm();
+    if (this.bibleIS.noteForm.valid){
+      this.bibleIS.addBibleNote().subscribe(); 
+      this.bibleIS.sendClickEvent();
+      //this.bibleIS.noteForm.reset();
+      //this.bibleIS.updateNoteForm();
+      this.notificationService.success('Note made successfully.');
+    }
+  }
+
+  ngOnDestroy(){
+    this.bibleIS.noteForm.controls['_notes'].reset();
+    this.bibleIS.noteForm.controls['_title'].reset();
   }
 
 }

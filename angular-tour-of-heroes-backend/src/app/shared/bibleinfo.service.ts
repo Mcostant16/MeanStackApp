@@ -10,6 +10,8 @@ import { FormGroup, FormControl, Validators,  } from '@angular/forms';
 import { BibleInfo } from './bible-info.model';
 import { Colors } from './color-profile.model';
 import { Note } from './user-note.model';
+import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { BibleBottomSheetComponent } from '../user-profile/bible/bible-child/bible-bottom-sheet/bible-bottom-sheet.component';
 
 @Injectable({
   providedIn: 'root'
@@ -63,10 +65,11 @@ private noteSource = new BehaviorSubject<Note>(this.userNote);
 addNote$ = this.noteSource.asObservable();
 private subject = new Subject<any>();
 public noteChapters; 
-public bookChapter: string;
+//public bookChapter: string;
 public verseArray: string [] = [];
 private word: string = 'color';
-  private x: number =  1;
+private x: number =  1;
+public bottomSheetRef: MatBottomSheetRef;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -94,7 +97,7 @@ constructor(public http: HttpClient) { }
    // _verses: new FormControl({value: null, disabled: true}, Validators.required),
     _verses: new FormControl({value: '',}),
     _date: new FormControl(''),
-    _notes: new FormControl(''),
+    _notes: new FormControl('', Validators.required),
     _bible_id: new FormControl(''),
     _books_id: new FormControl(''),
     _chapter_id: new FormControl(''),
@@ -120,7 +123,6 @@ constructor(public http: HttpClient) { }
 
 bibleId: string;
 chapterId:string;
-
     /*
  * Handle Http operation that failed.
  * Let the app continue.
@@ -147,11 +149,13 @@ getbiblePassage(/*bibleId,chapterId*/) {
   this.noteChapters = JSON.parse(this.form.get('chapter_id').value);
   //this.bibleId = bibleId; ////set bibleId to save highlights
  // this.chapterId = chapterId; //set chapterId to save highlights
-  this.updateNoteForm();
+ //need elvis operator because bottomSheetRef does not exist until verse is clicked and throws error.
+ this.bottomSheetRef?.dismiss(); 
+ this.updateNoteForm();
   let params = new HttpParams();
   params = params.append('bible_ID', this.noteChapters.bibleId);
   params = params.append('chapter_ID', this.noteChapters.id);
-  console.log(this.noteChapters.reference);
+  //console.log(this.noteChapters.reference);
   return this.http.get(environment.apiBaseUrl + '/biblePassage',{ params: params});
 }
 
@@ -200,9 +204,9 @@ setNote(data){
 }
 
 updateNoteForm() {
-  //update note model to send parameterms
-  
- this.noteForm.setValue({
+ //update note model to send parameterms
+ this.noteForm.controls['_notes'].reset(); //had to keep this here to keep form from doing error even though it's in the ngdestroy of bible bottom sheet component...
+  this.noteForm.setValue({
     _profile_id: this.getUserPayLoad()._id,
     _title: '',
     _verses:'',
@@ -212,15 +216,9 @@ updateNoteForm() {
     _books_id: this.noteChapters.bookId,
     _chapter_id: this.noteChapters.id,
   });
-  //this.userNote.bible_id = this.noteChapters.bibleId;
-  //this.userNote.book_id = this.noteChapters.bookId;
-  //this.userNote.chapter_id = this.noteChapters.id;
- // this.userNote.reference = this.noteChapters.reference;
+  //clear verse array of any previous verse that may not have been submitted.
+ // this.verseArray = []; 
 }
-
-//this algorithim works 
-
-
 
 updateVerseArray() {
   const arr = this.verseArray.map(element => parseInt(element.split('.').pop()));
@@ -250,7 +248,7 @@ updateVerseArray() {
   //update noteForm verses with myArray to show shortened list of consecutive and individual verses.
   this.noteForm.patchValue({
     _verses: this.noteChapters.reference + ': V. ' + myArray});
-  console.log(this.noteForm);
+ // console.log(this.noteForm);
 }
 
 

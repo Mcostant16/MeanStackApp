@@ -12,7 +12,7 @@ import { BibleinfoService } from '../../../shared/bibleinfo.service';
   templateUrl: './bible-child.component.html',
   styleUrls: ['./bible-child.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class BibleChildComponent implements OnChanges, OnInit  {
   
@@ -32,7 +32,8 @@ export class BibleChildComponent implements OnChanges, OnInit  {
   bottomSheetOpen: boolean = false; 
   dialogConfig: MatBottomSheetConfig;
   removeUnderlineArr: string [] = [];
-  private bottomSheetRef: MatBottomSheetRef;
+  //private bottomSheetRef: MatBottomSheetRef;
+  //i had to put bottomSheetRef in service which makes sense now any component can reference it through service.
 
   constructor(private elementRef: ElementRef, private renderer2: Renderer2,
      private sanitizer: DomSanitizer,private cd: ChangeDetectorRef,
@@ -50,7 +51,7 @@ ngOnInit(): void {
  // subscribe to getClickEvent() in service when triggered run this.updateColor Function
   this.clickEventsubscription=this.bibleIS.getClickEvent().subscribe(()=>{
     this.updateColor();
-    })
+    });
 }
 
 ngOnChanges(changes: SimpleChanges){
@@ -58,7 +59,6 @@ ngOnChanges(changes: SimpleChanges){
   this.cd.detectChanges();
   this.addEventListeners();
  // console.log(this.lifecycleTicks++);
- 
 }
 
 
@@ -99,13 +99,13 @@ addEventListeners(){
           //console.log(this.bibleIS.verseArray);
           //check and see if the bottomsheet menu is open and subscribe to events on observables.
           if(!this.bottomSheetOpen){
-            this.bottomSheetRef = this.bottomSheet.open(BibleBottomSheetComponent, this.dialogConfig);
-            this.bottomSheetRef.afterOpened().subscribe( ()=> {
+            this.bibleIS.bottomSheetRef = this.bottomSheet.open(BibleBottomSheetComponent, this.dialogConfig);
+            this.bibleIS.bottomSheetRef.afterOpened().subscribe( ()=> {
                 this.bottomSheetOpen = true;
                 this.cd.detectChanges();
             });
             
-          this.bottomSheetRef.afterDismissed().subscribe( ()=> {
+          this.bibleIS.bottomSheetRef.afterDismissed().subscribe( ()=> {
                 //this.cd.detectChanges();
             this.bibleIS.verseArray = [];
             this.removeUnderlineArr.forEach(element => {
@@ -129,7 +129,7 @@ updateColor(){
   this.removeUnderlineArr.forEach(element => {
     this.renderer2.setStyle(element, 'background-color', this.bibleIS.updateColor);
   });
-  this.bottomSheetRef.dismiss();
+  this.bibleIS.bottomSheetRef.dismiss();
 
 }
 

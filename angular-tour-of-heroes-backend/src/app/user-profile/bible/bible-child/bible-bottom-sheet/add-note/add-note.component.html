@@ -21,7 +21,7 @@
         <div class="date-label">{{dateToday | date: "mediumDate"}}</div>
          <mat-form-field  appearance="fill">
             <mat-label>Make Note</mat-label>
-                 <textarea formControlName="_notes" matInput placeholder="Ex. This passage resonates with me because..."
+                 <textarea formControlName="_notes" required matInput placeholder="Ex. This passage resonates with me because..."
                     cdkTextareaAutosize
                     cdkAutosizeMinRows="7"
                     cdkAutosizeMaxRows="10"></textarea>
