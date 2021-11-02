@@ -300,8 +300,15 @@ getNotes(): Observable<any>{
   let params = new HttpParams();
   params = params.append('profile_ID', this.getUserPayLoad()._id);
   return this.http.get(environment.apiBaseUrl + '/notes', { params: params}).pipe(
-    tap(_ => console.log(`got notes for profile=${this.getUserPayLoad()._id}`)),
+    tap(_ => null/*console.log(`got notes for profile=${this.getUserPayLoad()._id}`) */),
     catchError(this.handleError<any>('getNotes'))
+  );
+}
+
+deleteNote(_id: String): Observable<unknown> {
+  return this.http.delete(environment.apiBaseUrl + '/deleteNote/'+ _id ,this.httpOptions).pipe(
+    tap(_ => console.log(`deleted note id=${_id}`)),
+    catchError(this.handleError<any>('deleteUser'))
   );
 }
 

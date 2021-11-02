@@ -12,6 +12,7 @@ router.get('/userProfileImages', jwtHelper.verifyJwtToken, ctrlUser.userProfileI
 router.get('/users', jwtHelper.verifyJwtToken, ctrlUser.users);
 router.put('/updateUser', jwtHelper.verifyJwtToken, ctrlUser.updateUser);
 router.delete('/:id', jwtHelper.verifyJwtToken, ctrlUser.deleteUser);
+router.delete('/deleteNote/:_id', jwtHelper.verifyJwtToken, ctrlUser.deleteNote);
 router.post('/uploadImage',  ctrlUser.uploadImage);
 router.get('/uploads',  ctrlUser.uploads);
 router.get('/biblePassage',  ctrlUser.biblePassage);

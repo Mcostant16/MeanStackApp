@@ -110,6 +110,11 @@ getProfileNotes(){
   )
 }
 
+deleteBibleNote(note: string){
+  console.log(note);
+  this.BibleinfoService.deleteNote(note).subscribe();
+  this.getProfileNotes();
+}
 
 }
 

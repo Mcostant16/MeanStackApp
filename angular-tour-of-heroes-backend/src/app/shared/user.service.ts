@@ -89,24 +89,24 @@ private handleError<T>(operation = 'operation', result?: T) {
 }
 
   //http methods
-  postUser(user : User) {
+  postUser(user : User) : Observable<any> {
     return  this.http.post( environment.apiBaseUrl+'/register', user, this.noAuthHeader);
   }
 
-  login(authCredentials) {
+  login(authCredentials) : Observable<any> {
     return this.http.post(environment.apiBaseUrl + '/authenticate', authCredentials, this.noAuthHeader);
   }
 
-  getUserProfile() {
+  getUserProfile() : Observable<any> {
     return this.http.get(environment.apiBaseUrl + '/userProfile');
   }
 
-  getUserProfileImages() {
+  getUserProfileImages() : Observable<any> {
     return this.http.get(environment.apiBaseUrl + '/userProfileImages');
   }
 
-  getUsers() {
-    return this.http.get(environment.apiBaseUrl + '/users')
+  getUsers() : Observable<any> {
+    return this.http.get(environment.apiBaseUrl + '/users');
   }
   
   //helper methods
@@ -140,9 +140,6 @@ private handleError<T>(operation = 'operation', result?: T) {
   }
 
   deleteUser(_id: String): Observable<unknown> {
-    console.log('delete is working');
-    console.log('delete is working');
-
     return this.http.delete(environment.apiBaseUrl + '/'+ _id ,this.httpOptions).pipe(
       tap(_ => console.log(`deleted hero id=${_id}`)),
       catchError(this.handleError<any>('deleteUser'))

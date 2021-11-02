@@ -71,7 +71,7 @@ addEventListeners(){
       const index = this.bibleIS.verseArray.indexOf(bibleStyle);
       const el = this.elementRef.nativeElement.querySelectorAll(`[data-verse-id="${bibleStyle}"]`);
       //console.log(el);
-      //console.log(index);
+      //console.log(index);git a
       //only add the style if it is not yet in array and is not undefined
       if (index > -1 || !bibleStyle) {
         el.forEach(element => {
