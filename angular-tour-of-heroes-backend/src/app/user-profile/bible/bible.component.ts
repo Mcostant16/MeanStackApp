@@ -5,6 +5,8 @@ import { ThrowStmt, VariableAst } from '@angular/compiler';
 import { NgForm } from "@angular/forms";
 import { BibleinfoService } from '../../shared/bibleinfo.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeHtml} from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-bible',
   templateUrl: './bible.component.html',
@@ -16,14 +18,20 @@ export class BibleComponent implements OnInit {
   bibleInfo: SafeHtml;
   bibleHtmlData: any; 
   bibleTranslations: any; 
+  profileNotes: any; 
   books: any;
   chapters: any;
-
+  clickEventsubscription:Subscription;
   
-  constructor(public BibleinfoService: BibleinfoService, private sanitizer: DomSanitizer) {}
+  constructor(public BibleinfoService: BibleinfoService, private sanitizer: DomSanitizer) {
+    this.clickEventsubscription = this.BibleinfoService.getAddNoteClickEvent().subscribe( ()=> {
+      this.getProfileNotes();
+    })
+  }
 
   ngOnInit(): void {
     this.getBibles(); 
+    this.getProfileNotes();
     //this.getbiblePassage();
     //this.bibleInfo = this.sanitizer.bypassSecurityTrustHtml('<button type="button" id="submitButton"  class="newAwesomeClass (click)="showmessage()">Button</button>');
     }
@@ -93,6 +101,14 @@ addClickEvent() {
 
 }
 
+getProfileNotes(){
+  this.BibleinfoService.getNotes()
+  .subscribe(res=> {
+    this.profileNotes = res;
+  },
+  err=> {}
+  )
+}
 
 
 }

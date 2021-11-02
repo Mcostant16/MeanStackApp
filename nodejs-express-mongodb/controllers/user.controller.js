@@ -323,20 +323,11 @@ module.exports.addNote = (req,res,next) => {
 
 //return all users and fields except password
 module.exports.notes = (req, res ) => {
-    userNote.find({ profile_id: req._id },'-password', (err, docs)  => {
+    userNote.find({ profile_id: req.query.profile_ID},'-__v -updatedAt -date', (err, docs)  => {
+        //console.log("Testing76"+ req._id);
+       // console.log(docs);
         if (!err) { res.send(docs); }
         else { res.status(404).json({ status: false, message: 'User records not found.'}); }
     });
 }
 
-module.exports.userProfileImages = (req, res, next) => {
-    profileImages.find({ profile_id: req._id } , '-__v -updatedAt -date',
-        (err, images) => {
-            if (!images)
-                return res.status(404).json({ status: false, message: 'User profile images not found.'});
-            else 
-                console.log(images);
-                return res.status(200).json({ status: true, images });
-        }
-    );
-}

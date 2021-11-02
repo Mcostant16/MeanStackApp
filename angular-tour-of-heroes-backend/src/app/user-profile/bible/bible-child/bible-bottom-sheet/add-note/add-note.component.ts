@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/cor
 import { BibleinfoService } from '../../../../../shared/bibleinfo.service';
 import { Event } from '@angular/router';
 import { NotificationService } from '../../../../../shared/notification.service';
+
 @Component({
   selector: 'app-add-note',
   templateUrl: './add-note.component.html',
@@ -25,9 +26,11 @@ export class AddNoteComponent implements OnInit {
     if (this.bibleIS.noteForm.valid){
       this.bibleIS.addBibleNote().subscribe(); 
       this.bibleIS.sendClickEvent();
+      this.bibleIS.getNotes();
       //this.bibleIS.noteForm.reset();
       //this.bibleIS.updateNoteForm();
       this.notificationService.success('Note made successfully.');
+      this.bibleIS.sendAddNoteClickEvent();
     }
   }
 

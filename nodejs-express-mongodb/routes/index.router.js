@@ -18,5 +18,6 @@ router.get('/biblePassage',  ctrlUser.biblePassage);
 router.get('/bibles',  ctrlUser.bibles);
 router.get('/books',  ctrlUser.books);
 router.get('/chapters',  ctrlUser.chapters);
+router.get('/notes',  ctrlUser.notes);
 module.exports = router;
 

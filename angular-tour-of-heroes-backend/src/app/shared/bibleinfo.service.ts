@@ -194,9 +194,18 @@ sendClickEvent(){
   this.subject.next();
 }
 
+sendAddNoteClickEvent(){
+  this.subject.next();
+}
+
 getClickEvent(): Observable<any>{
   return this.subject.asObservable();
 }
+
+getAddNoteClickEvent(): Observable<any>{
+  return this.subject.asObservable();
+}
+
 
 setNote(data){
 
@@ -283,6 +292,16 @@ addBibleNote(): Observable<any>{
   return this.http.post(environment.apiBaseUrl + '/addNote', this.noteForm.value, this.noAuthHeader).pipe(
     tap(_ => console.log(`updated hero id=${this.noteForm.value._profile_id}`)),
     catchError(this.handleError<any>('addBibleNote'))
+  );
+}
+
+getNotes(): Observable<any>{
+
+  let params = new HttpParams();
+  params = params.append('profile_ID', this.getUserPayLoad()._id);
+  return this.http.get(environment.apiBaseUrl + '/notes', { params: params}).pipe(
+    tap(_ => console.log(`got notes for profile=${this.getUserPayLoad()._id}`)),
+    catchError(this.handleError<any>('getNotes'))
   );
 }
 
